@@ -1,10 +1,10 @@
-const User = require('./user')
+const Developer = require('./developer')
 const Client = require('./client')
 
-User.belongsToMany(Client, {through: 'relationship'})
-Client.belongsToMany(User, {through: 'relationship'})
+Developer.belongsToMany(Client, {through: 'relationship'})
+Client.belongsToMany(Developer, {through: 'relationship'})
 
 module.exports = {
-  User,
+  Developer,
   Client
 }

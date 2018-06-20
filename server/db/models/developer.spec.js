@@ -2,9 +2,9 @@
 
 const {expect} = require('chai')
 const db = require('../index')
-const User = db.model('user')
+const Developer = db.model('developer')
 
-describe('User model', () => {
+describe('Developer model', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
@@ -14,7 +14,7 @@ describe('User model', () => {
       let cody
 
       beforeEach(async () => {
-        cody = await User.create({
+        cody = await Developer.create({
           email: 'cody@puppybook.com',
           password: 'bones'
         })
@@ -29,4 +29,4 @@ describe('User model', () => {
       })
     }) // end describe('correctPassword')
   }) // end describe('instanceMethods')
-}) // end describe('User model')
+}) // end describe('Developer model')
