@@ -3,12 +3,15 @@ const db = require('../db')
 const Sequelize = require('sequelize')
 
 const Client = db.define('client', {
-  appName: {
+  projectName: {
     type: Sequelize.STRING,
-    allowNull: false
+    unique: true,
+    allowNull: false,
+    validate: {notEmpty: true}
   },
   website: {
     type: Sequelize.STRING,
+    allowNull: false,
     get() {
       return () => this.getDataValue('website')
     }
@@ -19,7 +22,7 @@ const Client = db.define('client', {
       return () => this.getDataValue('salt')
     }
   },
-  token: {
+  APItoken: {
     type: Sequelize.STRING
   }
 })
