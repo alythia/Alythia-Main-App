@@ -1,16 +1,16 @@
 const router = require('express').Router()
-const {Developer} = require('../db/models')
+const {User} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const developers = await Developer.findAll({
+    const users = await User.findAll({
       // explicitly select only the id and email fields - even though
-      // developers' passwords are encrypted, it won't help if we just
+      // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
       attributes: ['id', 'email']
     })
-    res.json(developers)
+    res.json(users)
   } catch (err) {
     next(err)
   }
@@ -19,7 +19,7 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   const {email} = req.body
   try {
-    const result = await Developer.create({email})
+    const result = await User.create({email})
     res.json(result)
   } catch (err) {
     next(err)

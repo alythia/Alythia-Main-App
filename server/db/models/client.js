@@ -1,5 +1,6 @@
-const Sequelize = require('sequelize')
+const crypto = require('crypto')
 const db = require('../db')
+const Sequelize = require('sequelize')
 
 const Client = db.define('client', {
   projectName: {
@@ -8,30 +9,41 @@ const Client = db.define('client', {
     allowNull: false,
     validate: {notEmpty: true}
   },
-
-  projectID: {
-    type: Sequelize.STRING // Auto-generates
-  },
-
-  url: {
+  website: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate: {
-      notEmpty: true,
-      isUrl: true
+    get() {
+      return () => this.getDataValue('website')
     }
   },
-
-  ApiToken: {
-    type: Sequelize.UUID,
-    defaultValue: Sequelize.UUIDV4 // Auto-generates
+  salt: {
+    type: Sequelize.STRING,
+    get() {
+      return () => this.getDataValue('salt')
+    }
+  },
+  APItoken: {
+    type: Sequelize.STRING
   }
 })
 
-// Auto-generates project ID
-Client.afterCreate(function(client) {
-  client.projectID = `${client.projectName.split(' ').join('-')}-${client.id}`
-  client.save()
-})
-
 module.exports = Client
+
+Client.generateSalt = function() {
+  return crypto.randomBytes(16).toString('base64')
+}
+
+Client.generateHash = function(plainText, salt) {
+  return crypto
+    .createHash('RSA-SHA256')
+    .update(plainText)
+    .update(salt)
+    .digest('hex')
+}
+
+const generateToken = client => {
+  client.salt = Client.generateSalt()
+  client.token = Client.generateHash(client.website(), client.salt())
+}
+
+Client.beforeCreate(generateToken)
