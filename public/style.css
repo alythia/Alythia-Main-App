@@ -23,3 +23,23 @@ form div {
 #QRCodeRender {
   height: 300px;
 }
+
+.btn_google {
+  display: flex;
+  width: 200px;
+  height: 35px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14);
+  border-radius: 3px;
+  justify-content: center;
+  align-content: center;
+  margin: 15px 0 5px 0;
+}
+
+.btn_google > img {
+  margin-right: 15px;
+}
+.btn_google > p {
+  /* margin-top: -5px; */
+}
