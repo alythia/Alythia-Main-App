@@ -1,40 +1,42 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {Input} from 'react-materialize'
+import {Input, Button, Icon} from 'react-materialize'
 import {auth} from '../store'
 
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div className="container">
+    <div className="container row white z-depth-2 form-container">
       <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <Input
-            type="email"
-            name="email"
-            htmlFor="email"
-            label="Email"
-            s={12}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-        <a href="/auth/google">
-          <div className="btn_google center">
-            <img src="/img/btn_google.svg" />
-            <p>{displayName} with Google</p>
+        <center className="row">
+          <h4 className="teal-text">{displayName}</h4>
+          <div className="col s12">
+            <Input type="email" name="email" htmlFor="email" label="Email" />
           </div>
-        </a>
+          <div className="col s12">
+            <Input
+              type="password"
+              name="password"
+              htmlFor="password"
+              label="Password"
+            />
+          </div>
+        </center>
+        <center>
+          <Button id="login" type="submit">
+            <Icon left>email</Icon>
+            {displayName} with Email
+          </Button>
+          {error && error.response && <div> {error.response.data} </div>}
+          <a href="/auth/google">
+            <div className="btn_google center">
+              <img src="/img/btn_google.svg" />
+              <p>{displayName} with Google</p>
+            </div>
+          </a>
+        </center>
       </form>
     </div>
   )
@@ -43,7 +45,7 @@ const AuthForm = props => {
 const mapLogin = state => {
   return {
     name: 'login',
-    displayName: 'Login',
+    displayName: 'Log In',
     error: state.developer.error
   }
 }
