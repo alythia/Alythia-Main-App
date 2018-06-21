@@ -54,6 +54,15 @@ form div {
   margin-top: 50px;
 }
 
+.landingCard {
+  border: 1px solid rgb(201, 201, 201);
+  border-radius: 8px;
+  height: 150px;
+  padding: 12px;
+  box-shadow: 4px 4px rgb(201, 201, 201, 0.2);
+  margin-bottom: 20px;
+}
+  
 #form-input {
   width: 100%;
 }
@@ -76,4 +85,8 @@ form div {
   color: red;
   border-width: 5px;
   border-color: black;
+}
+
+.id .btn-floating {
+  margin-top: 20px;
 }

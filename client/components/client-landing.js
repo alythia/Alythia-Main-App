@@ -1,6 +1,5 @@
 import React, {Component} from 'React'
 import Project from './project-card'
-import {Modal, Button} from 'react-materialize'
 
 export default class Landing extends Component {
   state = {
@@ -8,7 +7,23 @@ export default class Landing extends Component {
       {name: 'Stackathon', id: 'stackathon-4369'},
       {name: 'HoopChat', id: 'hoopchat'},
       {name: 'Moon Landing 1969', id: 'moon-landing-1969'}
-    ]
+    ],
+    newProj: {
+      projectName: '',
+      projectID: '',
+      domain: ''
+    }
+  }
+
+  handleChange = e => {
+    let change = {}
+    change[e.target.name] = e.target.value
+    console.log(change)
+    this.setState({newProj: change})
+  }
+
+  handleSubmit = () => {
+    console.log('Axios saves the world!')
   }
 
   render() {
@@ -25,17 +40,13 @@ export default class Landing extends Component {
         </div>
         <div className="row ">
           <div className="col push-m2 m8">
-            <Modal header="Modal Header" trigger={<Button>MODAL</Button>}>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum
-              </p>
-            </Modal>
+            <Project
+              userInfo="New Project"
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+              newProj={this.state.newProj}
+            />
+
             {this.state.userInfo.map(ele => (
               <Project userInfo={ele} key={ele.id} />
             ))}
