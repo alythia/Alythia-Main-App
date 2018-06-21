@@ -68,3 +68,7 @@ form div {
   padding: 0 2px;
   word-wrap: break-word;
 }
+  
+#QRCodeRender {
+  height: 300px;
+}
