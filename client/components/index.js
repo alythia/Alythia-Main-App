@@ -6,3 +6,4 @@
 export {default as Navbar} from './navbar'
 export {default as DeveloperHome} from './developer-home'
 export {Login, Signup} from './auth-form'
+export {default as Landing} from './client-landing'
