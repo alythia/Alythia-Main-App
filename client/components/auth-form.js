@@ -6,14 +6,19 @@ import {auth} from '../store'
 
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
-
   return (
     <div className="container row white z-depth-2 form-container">
       <form onSubmit={handleSubmit} name={name}>
         <center className="row">
           <h4 className="teal-text">{displayName}</h4>
           <div className="col s12">
-            <Input type="email" name="email" htmlFor="email" label="Email" />
+            <Input
+              type="email"
+              name="email"
+              htmlFor="email"
+              label="Email"
+              className="validate"
+            />
           </div>
           <div className="col s12">
             <Input
@@ -21,6 +26,7 @@ const AuthForm = props => {
               name="password"
               htmlFor="password"
               label="Password"
+              className="validate"
             />
           </div>
         </center>
@@ -29,13 +35,19 @@ const AuthForm = props => {
             <Icon left>email</Icon>
             {displayName} with Email
           </Button>
-          {error && error.response && <div> {error.response.data} </div>}
           <a href="/auth/google">
             <div className="btn_google center">
               <img src="/img/btn_google.svg" />
               <p>{displayName} with Google</p>
             </div>
           </a>
+          {error &&
+            error.response && (
+              <div className="error-container">
+                Confirm email address is valid.<br />Neither email nor password
+                can be blank.
+              </div>
+            )}
         </center>
       </form>
     </div>
