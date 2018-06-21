@@ -1,5 +1,5 @@
 body {
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: sans-serif;
 }
 
 a {
@@ -20,21 +20,38 @@ form div {
   display: inline-block;
 }
 
-/* Landing Page */
-
-.landingHeader {
-  color: rgba(0, 0, 0, 0.87);
-  font-family: 'Google Sans', sans-serif;
-  font-size: 30px;
-  font-weight: 400;
-  line-height: 40px;
-  margin-bottom: 8px;
+#QRCodeRender {
+  height: 300px;
 }
 
-.landingInfo {
-  color: rgba(0, 0, 0, 0.54);
-  font-size: 16px;
-  line-height: 24px;
+.btn_google {
+  display: flex;
+  background-color: rgb(245, 245, 245);
+  width: 85%;
+  height: 35px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14);
+  border-radius: 3px;
+  justify-content: center;
+  align-content: center;
+  margin: 15px 0 5px 0;
+}
+
+.btn_google > img {
+  margin-right: 15px;
+}
+.btn_google > p {
+  margin: auto 0;
+  text-transform: uppercase;
+  color: teal;
+}
+
+.form-container {
+  width: 33%;
+  padding: 40px;
+  padding-top: 10px;
+  margin-top: 50px;
 }
 
 .landingCard {
@@ -45,29 +62,29 @@ form div {
   box-shadow: 4px 4px rgb(201, 201, 201, 0.2);
   margin-bottom: 20px;
 }
-
-.landingCard:hover {
-  background-color: rgb(180, 180, 180);
+  
+#form-input {
+  width: 100%;
 }
 
-.landingCard > .name {
-  color: rgba(0, 0, 0, 0.87);
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 28px;
-  word-wrap: break-word;
+#login {
+  width: 85%;
+  display: flex;
+  justify-content: center;
 }
 
-.landingCard > .id {
-  align-self: flex-start;
-  color: rgba(0, 0, 0, 0.38);
-  cursor: text;
-  font-size: 14px;
-  line-height: 20px;
-  margin: 0 -2px;
-  min-width: 0;
-  padding: 0 2px;
-  word-wrap: break-word;
+.input-field {
+  margin: 10px auto;
+  width: 100%;
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  border-width: 5px;
+  border-color: black;
 }
 
 .id .btn-floating {
