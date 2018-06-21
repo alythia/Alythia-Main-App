@@ -1,6 +1,7 @@
 const crypto = require('crypto')
 const db = require('../db')
 const Sequelize = require('sequelize')
+const jwt = require('jsonwebtoken')
 
 const Client = db.define('client', {
   projectName: {
@@ -16,10 +17,11 @@ const Client = db.define('client', {
       return () => this.getDataValue('website')
     }
   },
-  salt: {
+  secret: {
     type: Sequelize.STRING,
+    unique: true,
     get() {
-      return () => this.getDataValue('salt')
+      return () => this.getDataValue('secret')
     }
   },
   APItoken: {
@@ -29,21 +31,17 @@ const Client = db.define('client', {
 
 module.exports = Client
 
-Client.generateSalt = function() {
+Client.generateSecret = function() {
   return crypto.randomBytes(16).toString('base64')
 }
 
-Client.generateHash = function(plainText, salt) {
-  return crypto
-    .createHash('RSA-SHA256')
-    .update(plainText)
-    .update(salt)
-    .digest('hex')
+Client.generateHash = function(plainText, secret) {
+  return jwt.sign({url: plainText}, secret)
 }
 
 const generateToken = client => {
-  client.salt = Client.generateSalt()
-  client.token = Client.generateHash(client.website(), client.salt())
+  client.secret = Client.generateSecret()
+  client.APItoken = Client.generateHash(client.website(), client.secret())
 }
 
 Client.beforeCreate(generateToken)
