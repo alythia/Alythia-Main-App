@@ -43,6 +43,7 @@ form div {
   height: 150px;
   padding: 12px;
   box-shadow: 4px 4px rgb(201, 201, 201, 0.2);
+  margin-bottom: 20px;
 }
 
 .landingCard:hover {
@@ -67,4 +68,8 @@ form div {
   min-width: 0;
   padding: 0 2px;
   word-wrap: break-word;
+}
+
+.id .btn-floating {
+  margin-top: 20px;
 }
