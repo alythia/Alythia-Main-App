@@ -1,17 +1,13 @@
+/* eslint-disable react/prefer-stateless-function */
+'use strict'
 import React, {Component} from 'react'
 import QRCode from 'qrcode.react'
 
 class UniqueQRCode extends Component {
-  // Will need app's unique API token
-  // Will need to generate random Hash to identify this particular transaction/QR code
-
-  generateQRCode = (appToken, randomHash) => {
-    const QRData = `${appToken}~${randomHash}` // To discuss how to combine the arguments
-    return QRData
-  }
-
   render() {
-    const QRData = this.generateQRCode()
+    const apiToken = this.props.apiToken // client identifier
+    const randomHash = this.props.randomHash // transaction identifier
+    const QRData = `${apiToken}&${randomHash}`
     return <QRCode value={QRData} />
   }
 }

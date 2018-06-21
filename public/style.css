@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
 a {
@@ -18,4 +18,57 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+/* Landing Page */
+
+.landingHeader {
+  color: rgba(0, 0, 0, 0.87);
+  font-family: 'Google Sans', sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 40px;
+  margin-bottom: 8px;
+}
+
+.landingInfo {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.landingCard {
+  border: 1px solid rgb(201, 201, 201);
+  border-radius: 8px;
+  height: 150px;
+  padding: 12px;
+  box-shadow: 4px 4px rgb(201, 201, 201, 0.2);
+}
+
+.landingCard:hover {
+  background-color: rgb(180, 180, 180);
+}
+
+.landingCard > .name {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+  word-wrap: break-word;
+}
+
+.landingCard > .id {
+  align-self: flex-start;
+  color: rgba(0, 0, 0, 0.38);
+  cursor: text;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0 -2px;
+  min-width: 0;
+  padding: 0 2px;
+  word-wrap: break-word;
+}
+  
+#QRCodeRender {
+  height: 300px;
 }
