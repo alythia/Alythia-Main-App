@@ -135,3 +135,24 @@ form div {
 .id .btn-floating {
   margin-top: 20px;
 }
+
+.parallax-container .parallax img {
+  opacity: 1;
+  /* left: 0; */
+  max-width: 100%;
+  text-indent: -40px;
+}
+
+.parallax-container {
+  height: 300px;
+  overflow: hidden;
+}
+
+.header {
+  left: 65% !important;
+  top: -120px;
+}
+
+.project-boxes {
+  top: -100px;
+}
