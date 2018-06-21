@@ -68,3 +68,12 @@ form div {
   margin: 10px auto;
   width: 100%;
 }
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  border-width: 5px;
+  border-color: black;
+}
