@@ -16,14 +16,14 @@ export default class Landing extends Component {
   }
 
   handleChange = e => {
-    let change = {}
+    let change = this.state.newProj
     change[e.target.name] = e.target.value
-    console.log(change)
     this.setState({newProj: change})
   }
 
   handleSubmit = () => {
-    console.log('Axios saves the world!')
+    $('#close').modal('close')
+    console.log('Axios saves the world!', this.state.newProj)
   }
 
   render() {

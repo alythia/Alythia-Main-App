@@ -9,11 +9,23 @@ export const ProjectForm = props => {
         s={6}
         label="Project Name"
         name="projectName"
-        value={props.newProj.projectName}
+        defaultValue={props.newProj.projectName}
         onChange={handleChange}
       />
-      <Input s={6} label="Project ID" onChange={handleChange} />
-      <Input s={6} label="Authorized Domain" onChange={handleChange} />
+      <Input
+        s={6}
+        label="Project ID"
+        name="projectID"
+        defaultValue={props.newProj.projectID}
+        onChange={handleChange}
+      />
+      <Input
+        s={6}
+        label="Authorized Domain"
+        name="domain"
+        defaultValue={props.newProj.domain}
+        onChange={handleChange}
+      />
       <div className="row">
         <span>I accept the Terms and Conditions for using this product.</span>
       </div>

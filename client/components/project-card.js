@@ -17,42 +17,34 @@ export const Project = props => {
   } else {
     return (
       <div className="col m4 s6">
-        <a
-          onClick={e => {
-            e.preventDefault()
-            $('#modal1').modal('open')
-          }}
-          href=""
-        >
-          <div className="landingCard">
-            <div className="name">{props.userInfo}</div>
-            <div className="id">
-              <Modal
-                header="Modal Header"
-                id="close"
-                trigger={
-                  <Button
-                    floating
-                    large
-                    className="red"
-                    waves="light"
-                    icon="add"
-                  />
-                }
-                actions={
-                  <Button onClick={props.handleSubmit} waves="light" id="close">
-                    Add my project<Icon left>add_circle_outline</Icon>
-                  </Button>
-                }
-              >
-                <ProjectForm
-                  handleChange={props.handleChange}
-                  newProj={props.newProj}
+        <div className="landingCard">
+          <div className="name">{props.userInfo}</div>
+          <div className="id">
+            <Modal
+              header="Modal Header"
+              id="close"
+              trigger={
+                <Button
+                  floating
+                  large
+                  className="red"
+                  waves="light"
+                  icon="add"
                 />
-              </Modal>
-            </div>
+              }
+              actions={
+                <Button onClick={props.handleSubmit} waves="light">
+                  Add my project<Icon left>add_circle_outline</Icon>
+                </Button>
+              }
+            >
+              <ProjectForm
+                handleChange={props.handleChange}
+                newProj={props.newProj}
+              />
+            </Modal>
           </div>
-        </a>
+        </div>
       </div>
     )
   }
