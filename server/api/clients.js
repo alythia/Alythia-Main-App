@@ -25,6 +25,18 @@ router.post('/register', async (req, res, next) => {
   }
 })
 
+router.post('/verify', async (req, res, next) => {
+  const clientToken = req.body.token
+  try {
+    const result = await Client.findOne({where: {APItoken: clientToken}})
+    if (result) res.status(200).send()
+    else res.status(401).send('Invalid token')
+  } catch (error) {
+    console.log('/client/verify', error.message)
+    next(error)
+  }
+})
+
 // router.get('/:projectID', async (req, res, next) => {
 //   try {
 //     const client = await Client.findOne({

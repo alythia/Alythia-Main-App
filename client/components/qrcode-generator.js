@@ -6,8 +6,7 @@ import QRCode from 'qrcode.react'
 class UniqueQRCode extends Component {
   render() {
     const apiToken = this.props.apiToken // client identifier
-    const randomHash = this.props.randomHash // transaction identifier
-    const QRData = `${apiToken}&${randomHash}`
+    const QRData = `${apiToken}`
     return <QRCode value={QRData} />
   }
 }
