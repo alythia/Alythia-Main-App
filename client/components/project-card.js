@@ -1,4 +1,4 @@
-import React from 'React'
+import React from 'react'
 import {Modal, Button, Icon} from 'react-materialize'
 import ProjectForm from './project-form'
 

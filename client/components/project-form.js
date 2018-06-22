@@ -1,4 +1,4 @@
-import React from 'React'
+import React from 'react'
 import {Input, Row} from 'react-materialize'
 
 export const ProjectForm = props => {
