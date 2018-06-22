@@ -1,5 +1,6 @@
 import React, {Component} from 'React'
 import Project from './project-card'
+import {Link} from 'react-router-dom'
 import {Parallax} from 'react-materialize'
 
 export default class Landing extends Component {
@@ -29,32 +30,36 @@ export default class Landing extends Component {
 
   render() {
     return (
-      <div>
-        <Parallax imageSrc="./landing-bg2.jpg" />
-        <div className="row">
-          <div className="col push-m2 m4 header">
-            <div className="landingHeader">Welcome to Alythia!</div>
-            <div className="landingInfo">
-              Tools from Google for developing great apps, engaging with your
-              users, and earning more through mobile ads.
+      <React.Fragment>
+        <section>
+          <div className="parallax-container">
+            <div className="section no-pad-bot">
+              <div className="container">
+                <div className="row">
+                  <h1 className="header main-header col s12">Alythia.</h1>
+                  <h5 className="header col s12">
+                    A password-free authentication provider
+                  </h5>
+                </div>
+              </div>
             </div>
+            <div className="landing-image parallax" />
           </div>
-        </div>
-        <div className="row">
-          <div className="col push-m2 m8 project-boxes">
+        </section>
+        <section className="row projects-container">
+          <div className="row col push-m2 m8 project-boxes">
             <Project
               userInfo="New Project"
               handleChange={this.handleChange}
               handleSubmit={this.handleSubmit}
               newProj={this.state.newProj}
             />
-
             {this.state.userInfo.map(ele => (
               <Project userInfo={ele} key={ele.id} />
             ))}
           </div>
-        </div>
-      </div>
+        </section>
+      </React.Fragment>
     )
   }
 }
