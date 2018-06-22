@@ -1,5 +1,6 @@
 import React, {Component} from 'React'
 import Project from './project-card'
+import {Parallax} from 'react-materialize'
 
 export default class Landing extends Component {
   state = {
@@ -16,21 +17,22 @@ export default class Landing extends Component {
   }
 
   handleChange = e => {
-    let change = {}
+    let change = this.state.newProj
     change[e.target.name] = e.target.value
-    console.log(change)
     this.setState({newProj: change})
   }
 
   handleSubmit = () => {
-    console.log('Axios saves the world!')
+    $('#close').modal('close')
+    console.log('Axios saves the world!', this.state.newProj)
   }
 
   render() {
     return (
       <div>
+        <Parallax imageSrc="./landing-bg2.jpg" />
         <div className="row">
-          <div className="col push-m2 m4">
+          <div className="col push-m2 m4 header">
             <div className="landingHeader">Welcome to Alythia!</div>
             <div className="landingInfo">
               Tools from Google for developing great apps, engaging with your
@@ -38,8 +40,8 @@ export default class Landing extends Component {
             </div>
           </div>
         </div>
-        <div className="row ">
-          <div className="col push-m2 m8">
+        <div className="row">
+          <div className="col push-m2 m8 project-boxes">
             <Project
               userInfo="New Project"
               handleChange={this.handleChange}
