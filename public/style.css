@@ -54,6 +54,60 @@ form div {
   margin-top: 50px;
 }
 
+/* Landing Page */
+
+.landingHeader {
+  color: rgba(0, 0, 0, 0.87);
+  font-family: 'Google Sans', sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 40px;
+  margin-bottom: 8px;
+}
+
+.landingInfo {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.landingCard {
+  border: 1px solid rgb(201, 201, 201);
+  border-radius: 8px;
+  height: 150px;
+  padding: 12px;
+  box-shadow: 4px 4px rgb(201, 201, 201, 0.2);
+  margin-bottom: 20px;
+}
+
+.landingCard:hover {
+  background-color: rgb(180, 180, 180);
+}
+
+.landingCard > .name {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+  word-wrap: break-word;
+}
+
+.landingCard > .id {
+  align-self: flex-start;
+  color: rgba(0, 0, 0, 0.38);
+  cursor: text;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0 -2px;
+  min-width: 0;
+  padding: 0 2px;
+  word-wrap: break-word;
+}
+
+.id .btn-floating {
+  margin-top: 20px;
+}
+
 #form-input {
   width: 100%;
 }
@@ -67,4 +121,38 @@ form div {
 .input-field {
   margin: 10px auto;
   width: 100%;
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  border-width: 5px;
+  border-color: black;
+}
+
+.id .btn-floating {
+  margin-top: 20px;
+}
+
+.parallax-container .parallax img {
+  opacity: 1;
+  /* left: 0; */
+  max-width: 100%;
+  text-indent: -40px;
+}
+
+.parallax-container {
+  height: 300px;
+  overflow: hidden;
+}
+
+.header {
+  left: 65% !important;
+  top: -120px;
+}
+
+.project-boxes {
+  top: -100px;
 }
