@@ -37,10 +37,9 @@ export const auth = (email, password, method) => async dispatch => {
   } catch (authError) {
     return dispatch(getDeveloper({error: authError}))
   }
-
   try {
     dispatch(getDeveloper(res.data))
-    history.push('/home')
+    history.push('/')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
   }

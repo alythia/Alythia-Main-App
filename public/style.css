@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Lato', sans-serif;
 }
 
 a {
@@ -10,19 +10,45 @@ label {
   display: block;
 }
 
-nav a {
-  display: inline-block;
-  margin: 1em;
-}
-
 form div {
   margin: 1em;
   display: inline-block;
 }
 
+h1 {
+  font-family: 'Ubuntu';
+  font-size: 9rem;
+  color: #003559;
+}
+
+h5 {
+  font-family: 'Lato';
+  font-size: 2rem;
+  color: #b9d6f2;
+}
+
+#nav ul li {
+  color: #fff !important;
+  font-family: 'Ubuntu';
+  background-color: rgba(0, 0, 0, 0);
+  font-size: 2rem;
+}
+
+#nav li:hover,
+#nav li:active {
+  border-bottom: 2px solid #2e86de;
+}
+
+.nav-container {
+  margin: 0 auto;
+  width: 90%;
+}
+
 #QRCodeRender {
   height: 300px;
 }
+
+/* Login and Signin Forms */
 
 .btn_google {
   display: flex;
@@ -54,6 +80,30 @@ form div {
   margin-top: 50px;
 }
 
+#form-input {
+  width: 100%;
+}
+
+#login {
+  width: 85%;
+  display: flex;
+  justify-content: center;
+}
+
+.input-field {
+  margin: 10px auto;
+  width: 100%;
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  border-width: 5px;
+  border-color: black;
+}
+
 /* Landing Page */
 
 .landingHeader {
@@ -72,8 +122,9 @@ form div {
 }
 
 .landingCard {
-  border: 1px solid rgb(201, 201, 201);
-  border-radius: 8px;
+  background-color: #fff;
+  border: 1px solid rgb(236, 236, 236);
+  border-radius: 3px;
   height: 150px;
   padding: 12px;
   box-shadow: 4px 4px rgb(201, 201, 201, 0.2);
@@ -108,51 +159,60 @@ form div {
   margin-top: 20px;
 }
 
-#form-input {
-  width: 100%;
-}
-
-#login {
-  width: 85%;
-  display: flex;
-  justify-content: center;
-}
-
-.input-field {
-  margin: 10px auto;
-  width: 100%;
-}
-
-.error-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: red;
-  border-width: 5px;
-  border-color: black;
-}
-
 .id .btn-floating {
   margin-top: 20px;
 }
 
+.parallax-container {
+  margin-top: -64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  height: 72vh;
+}
+
+.parallax-container .parallax {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
 .parallax-container .parallax img {
   opacity: 1;
-  /* left: 0; */
-  max-width: 100%;
-  text-indent: -40px;
-}
-
-.parallax-container {
-  height: 300px;
-  overflow: hidden;
-}
-
-.header {
-  left: 65% !important;
-  top: -120px;
+  position: absolute;
+  left: 50%;
+  height: 100%;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
 }
 
 .project-boxes {
-  top: -100px;
+  top: -50px;
+}
+
+.projects-container {
+  background-color: #e7ecef;
+  margin-bottom: -20px;
+}
+
+.landing-image {
+  background-image: url('https://i.imgur.com/Rl04WSK.jpg');
+  background-size: 76% auto;
+  background-position: top right;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.main-header {
+  margin-bottom: -1px;
+}
+
+.nav-text {
+  font-size: 1.2rem;
 }
