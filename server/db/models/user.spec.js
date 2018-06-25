@@ -9,25 +9,28 @@ describe('User model', () => {
     return db.sync({force: true})
   })
 
-  describe('instanceMethods', () => {
-    describe('correctPassword', () => {
-      let dave
+  // describe('instanceMethods', () => {
+  describe('password', () => {
+    let dave
 
-      beforeEach(async () => {
-        dave = await User.create({
-          name: 'dave',
-          email: 'dmt@email.com',
-          password: 'weeee'
-        })
+    beforeEach(async () => {
+      dave = await User.create({
+        name: 'dave',
+        email: 'dmt@email.com',
+        active: 'true'
       })
+    })
 
-      xit('returns true if the password is correct', () => {
-        expect(dave.correctPassword('weeee')).to.be.equal(true)
-      })
+    it('returns true if there is an existing user', () => {
+      expect(dave.name).to.be.equal('dave')
+    })
 
-      xit('returns false if the password is incorrect', () => {
-        expect(dave.correctPassword('yeeee')).to.be.equal(false)
-      })
-    }) // end describe('correctPassword')
-  }) // end describe('instanceMethods')
+    it('returns true if there is an existing user email', () => {
+      expect(dave.email).to.be.equal('dmt@email.com')
+    })
+    it('returns whether user is active', () => {
+      expect(dave.active).to.be.equal(true)
+    })
+  }) // end describe('correctPassword')
+  // }) // end describe('instanceMethods')
 }) // end describe('User model')
