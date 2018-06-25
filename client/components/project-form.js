@@ -1,5 +1,5 @@
 import React from 'react'
-import {Input, Row} from 'react-materialize'
+import {Input} from 'react-materialize'
 
 export const ProjectForm = props => {
   const handleChange = props.handleChange
@@ -9,6 +9,7 @@ export const ProjectForm = props => {
         s={6}
         label="Project Name"
         name="projectName"
+        id="input-margin"
         defaultValue={props.newProj.projectName}
         onChange={handleChange}
       />
@@ -16,6 +17,7 @@ export const ProjectForm = props => {
         s={6}
         label="Project ID"
         name="projectID"
+        id="input-margin"
         defaultValue={props.newProj.projectID}
         onChange={handleChange}
       />
@@ -26,9 +28,9 @@ export const ProjectForm = props => {
         defaultValue={props.newProj.domain}
         onChange={handleChange}
       />
-      <div className="row">
+      {/* <div className="row">
         <span>I accept the Terms and Conditions for using this product.</span>
-      </div>
+      </div> */}
     </div>
   )
 }

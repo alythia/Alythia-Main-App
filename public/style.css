@@ -216,3 +216,7 @@ h5 {
 .nav-text {
   font-size: 1.2rem;
 }
+
+.button-margin {
+  margin-left: 15px;
+}

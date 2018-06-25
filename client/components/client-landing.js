@@ -1,20 +1,41 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {addNewProject, fetchUserProjects} from '../store/client'
 import Project from './project-card'
-import {Link} from 'react-router-dom'
-import {Parallax} from 'react-materialize'
+import {me} from '../store'
 
-export default class Landing extends Component {
+class Landing extends Component {
   state = {
     userInfo: [
-      {name: 'Stackathon', id: 'stackathon-4369'},
-      {name: 'HoopChat', id: 'hoopchat'},
-      {name: 'Moon Landing 1969', id: 'moon-landing-1969'}
+      {
+        name: 'Stackathon',
+        id: 'stackathon-4369',
+        projectToken: 'tokenOne',
+        projectSecret: 'secretOne'
+      },
+      {
+        name: 'HoopChat',
+        id: 'hoopchat',
+        projectToken: 'tokenTwo',
+        projectSecret: 'secretTwo'
+      },
+      {
+        name: 'Moon Landing 1969',
+        id: 'moon-landing-1969',
+        projectToken: 'tokenThree',
+        projectSecret: 'secretThree'
+      }
     ],
     newProj: {
       projectName: '',
-      projectID: '',
-      domain: ''
+      website: ''
     }
+  }
+
+  componentDidMount = async () => {
+    await this.props
+      .loadInitialData()
+      .then(this.props.fetchUserProjects(this.props.developerId))
   }
 
   handleChange = e => {
@@ -23,12 +44,27 @@ export default class Landing extends Component {
     this.setState({newProj: change})
   }
 
+  generateNewToken = event => {
+    console.log('GENERATE NEW TOKEN')
+  }
+
+  generateNewSecret = event => {
+    // Generate new client secret
+    console.log('GENERATE NEW SECRET')
+  }
+
   handleSubmit = () => {
     $('#close').modal('close')
+    this.props.addNewProject(this.state.newProj)
     console.log('Axios saves the world!', this.state.newProj)
   }
 
+  handleDetailClose = () => {
+    $('#closeDetails').modal('close')
+  }
+
   render() {
+    console.log(this.props)
     return (
       <React.Fragment>
         <section>
@@ -55,7 +91,13 @@ export default class Landing extends Component {
               newProj={this.state.newProj}
             />
             {this.state.userInfo.map(ele => (
-              <Project userInfo={ele} key={ele.id} />
+              <Project
+                userInfo={ele}
+                key={ele.id}
+                generateNewToken={this.generateNewToken}
+                generateNewSecret={this.generateNewSecret}
+                handleSubmit={this.handleDetailClose}
+              />
             ))}
           </div>
         </section>
@@ -63,3 +105,16 @@ export default class Landing extends Component {
     )
   }
 }
+
+const mapState = state => ({
+  userProjects: state.client.userProjects,
+  developerId: state.developer.id
+})
+
+const mapDispatch = dispatch => ({
+  loadInitialData: () => dispatch(me()),
+  addNewProject: project => dispatch(addNewProject(project)),
+  fetchUserProjects: () => dispatch(fetchUserProjects())
+})
+
+export default connect(mapState, mapDispatch)(Landing)
