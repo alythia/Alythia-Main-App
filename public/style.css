@@ -201,6 +201,12 @@ h5 {
   margin-bottom: -20px;
 }
 
+.description {
+  color: #061a40;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .landing-image {
   background-image: url('https://i.imgur.com/Rl04WSK.jpg');
   background-size: 76% auto;
