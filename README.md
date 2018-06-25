@@ -15,19 +15,21 @@ Our group formulated this authorization app for our Capstone project in Fullstac
 
 # :building_construction: Built With
 
-For the back-end, LCMHD:tm: was built using the following:
+For the back-end, Alythia was built using the following:
 
 * :book: Language: JavaScript
 * :running: Runtime Environment: Node.js - Express.js
 * :file_cabinet: Object-Relational Database Management: Sequelize - PostgreSQL
+* :closed_lock_with_key: Authentication/Authorization: OAuth, JWT
 
 For the front-end, modular components were built and styled using the following:
 
 * :classical_building: Javascript Library: React
 * :control_knobs: State Management System: React-Redux
+* :iphone: Mobile App: React-Native
 * :clipboard:Cascading Style Sheets: Materialize
 
-# 👩‍💻 👨‍💻 Owners/Collaborators
+# 👨‍💻 Owners/Collaborators
 
 * [Matt Ferguson](https://github.com/mdfergus/)
 * [Anton Holmes](https://github.com/antonholmes/)
