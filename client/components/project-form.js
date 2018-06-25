@@ -24,8 +24,8 @@ export const ProjectForm = props => {
       <Input
         s={6}
         label="Authorized Domain"
-        name="domain"
-        defaultValue={props.newProj.domain}
+        name="website"
+        defaultValue={props.newProj.website}
         onChange={handleChange}
       />
       {/* <div className="row">

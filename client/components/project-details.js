@@ -21,14 +21,14 @@ export const ProjectDetails = props => {
       <Input
         s={4}
         label="API Token"
-        name="domain"
+        name="ApiToken"
         defaultValue={props.userInfo.projectToken}
         disabled
       />
       <Input
         s={6}
         label="Client Secret"
-        name="domain"
+        name="clientSecret"
         defaultValue={props.userInfo.projectSecret}
         disabled
       />

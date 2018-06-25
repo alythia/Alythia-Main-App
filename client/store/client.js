@@ -17,9 +17,9 @@ const initialState = {
  * ACTION CREATORS
  */
 const addedNewProject = project => ({type: ADDED_NEW_PROJECT, project})
-const fetchedUserProjects = project => ({
+const fetchedUserProjects = projects => ({
   type: FETCHED_DEVELOPER_PROJECTS,
-  project
+  projects
 })
 
 /**

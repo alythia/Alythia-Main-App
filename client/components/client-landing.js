@@ -33,9 +33,8 @@ class Landing extends Component {
   }
 
   componentDidMount = async () => {
-    await this.props
-      .loadInitialData()
-      .then(this.props.fetchUserProjects(this.props.developerId))
+    await this.props.loadInitialData()
+    await this.props.fetchUserProjects(this.props.developerId)
   }
 
   handleChange = e => {
