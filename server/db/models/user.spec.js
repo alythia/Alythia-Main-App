@@ -9,25 +9,25 @@ describe('User model', () => {
     return db.sync({force: true})
   })
 
-  describe('instanceMethods', () => {
-    describe('correctPassword', () => {
-      let dave
+  // describe('instanceMethods', () => {
+  describe('correctPassword', () => {
+    let dave
 
-      beforeEach(async () => {
-        dave = await User.create({
-          name: 'dave',
-          email: 'dmt@email.com',
-          password: 'weeee'
-        })
+    beforeEach(async () => {
+      dave = await User.create({
+        name: 'dave',
+        email: 'dmt@email.com',
+        password: 'weeee'
       })
+    })
 
-      xit('returns true if the password is correct', () => {
-        expect(dave.correctPassword('weeee')).to.be.equal(true)
-      })
+    xit('returns true if the password is correct', () => {
+      expect(dave.password).to.be.equal('weeee')
+    })
 
-      xit('returns false if the password is incorrect', () => {
-        expect(dave.correctPassword('yeeee')).to.be.equal(false)
-      })
-    }) // end describe('correctPassword')
-  }) // end describe('instanceMethods')
+    xit('returns false if the password is incorrect', () => {
+      expect(dave.password).to.be.equal('yeeee')
+    })
+  }) // end describe('correctPassword')
+  // }) // end describe('instanceMethods')
 }) // end describe('User model')

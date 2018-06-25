@@ -11,33 +11,33 @@ describe('Client routes', () => {
     return db.sync({force: true})
   })
 
-  describe('/api/clients/', () => {
-    const codysProject = 'puppybook'
-    const codysWebsite = 'puppybook.com'
+  describe('/api/clients/register/', () => {
+    // const codysProject = 'puppybook'
+    // const codysWebsite = 'puppybook.com'
 
     beforeEach(() => {
       return Client.create({
-        projectName: codysProject,
-        website: codysWebsite
+        projectName: 'puppybook',
+        website: 'www.puppybook.com'
       })
     })
 
-    xit('GET /api/clients/register', async () => {
+    it('GET /api/clients/register', async () => {
       const res = await request(app)
-        .get('/api/clients/register')
+        .get('/api/clients/')
         .expect(200)
 
       expect(res.body).to.be.an('array')
-      expect(res.body[0].projectName).to.be.equal(codysProject)
+      expect(res.body[0].projectName).to.be.equal('puppybook')
     })
 
-    xit('GET /api/clients/register', async () => {
+    it('GET /api/clients/register', async () => {
       const res = await request(app)
-        .get('/api/clients/register')
+        .get('/api/clients/')
         .expect(200)
 
       expect(res.body).to.be.an('array')
-      expect(res.body[0].website).to.be.equal(codysWebsite)
+      expect(res.body[0].website).to.be.equal('www.puppybook.com')
     })
   }) // end describe('/api/clients')
 }) // end describe('Client routes')
