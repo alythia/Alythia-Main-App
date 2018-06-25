@@ -10,23 +10,26 @@ describe('User model', () => {
   })
 
   // describe('instanceMethods', () => {
-  describe('correctPassword', () => {
+  describe('password', () => {
     let dave
 
     beforeEach(async () => {
       dave = await User.create({
         name: 'dave',
         email: 'dmt@email.com',
-        password: 'weeee'
+        active: 'true'
       })
     })
 
-    xit('returns true if the password is correct', () => {
-      expect(dave.password).to.be.equal('weeee')
+    it('returns true if there is an existing user', () => {
+      expect(dave.name).to.be.equal('dave')
     })
 
-    xit('returns false if the password is incorrect', () => {
-      expect(dave.password).to.be.equal('yeeee')
+    it('returns true if there is an existing user email', () => {
+      expect(dave.email).to.be.equal('dmt@email.com')
+    })
+    it('returns whether user is active', () => {
+      expect(dave.active).to.be.equal(true)
     })
   }) // end describe('correctPassword')
   // }) // end describe('instanceMethods')

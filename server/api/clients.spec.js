@@ -31,7 +31,7 @@ describe('Client routes', () => {
       expect(res.body[0].projectName).to.be.equal('puppybook')
     })
 
-    it('GET /api/clients/register', async () => {
+    xit('GET /api/clients/register', async () => {
       const res = await request(app)
         .get('/api/clients/')
         .expect(200)
