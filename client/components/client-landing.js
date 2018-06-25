@@ -6,35 +6,19 @@ import {me} from '../store'
 
 class Landing extends Component {
   state = {
-    userInfo: [
-      {
-        name: 'Stackathon',
-        id: 'stackathon-4369',
-        projectToken: 'tokenOne',
-        projectSecret: 'secretOne'
-      },
-      {
-        name: 'HoopChat',
-        id: 'hoopchat',
-        projectToken: 'tokenTwo',
-        projectSecret: 'secretTwo'
-      },
-      {
-        name: 'Moon Landing 1969',
-        id: 'moon-landing-1969',
-        projectToken: 'tokenThree',
-        projectSecret: 'secretThree'
-      }
-    ],
     newProj: {
       projectName: '',
-      website: ''
+      website: '',
+      developerId: ''
     }
   }
 
   componentDidMount = async () => {
     await this.props.loadInitialData()
-    await this.props.fetchUserProjects(this.props.developerId)
+    if (this.props.developerId) {
+      await this.props.fetchUserProjects(this.props.developerId)
+      this.setState({newProj: {developerId: this.props.developerId}})
+    }
   }
 
   handleChange = e => {
@@ -55,7 +39,6 @@ class Landing extends Component {
   handleSubmit = () => {
     $('#close').modal('close')
     this.props.addNewProject(this.state.newProj)
-    console.log('Axios saves the world!', this.state.newProj)
   }
 
   handleDetailClose = () => {
@@ -63,7 +46,6 @@ class Landing extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <React.Fragment>
         <section>
@@ -84,20 +66,27 @@ class Landing extends Component {
         <section className="row projects-container">
           <div className="row col push-m2 m8 project-boxes">
             <Project
-              userInfo="New Project"
+              newProject="New Project"
               handleChange={this.handleChange}
               handleSubmit={this.handleSubmit}
               newProj={this.state.newProj}
             />
-            {this.state.userInfo.map(ele => (
-              <Project
-                userInfo={ele}
-                key={ele.id}
-                generateNewToken={this.generateNewToken}
-                generateNewSecret={this.generateNewSecret}
-                handleSubmit={this.handleDetailClose}
-              />
-            ))}
+            {this.props.userProjects ? (
+              this.props.userProjects.map(ele => {
+                console.log(ele)
+                return (
+                  <Project
+                    userInfo={ele}
+                    key={ele.id}
+                    generateNewToken={this.generateNewToken}
+                    generateNewSecret={this.generateNewSecret}
+                    handleSubmit={this.handleDetailClose}
+                  />
+                )
+              })
+            ) : (
+              <div />
+            )}
           </div>
         </section>
       </React.Fragment>
@@ -106,14 +95,35 @@ class Landing extends Component {
 }
 
 const mapState = state => ({
-  userProjects: state.client.userProjects,
+  userProjects: state.client.userProjects.clients,
   developerId: state.developer.id
 })
 
 const mapDispatch = dispatch => ({
   loadInitialData: () => dispatch(me()),
   addNewProject: project => dispatch(addNewProject(project)),
-  fetchUserProjects: () => dispatch(fetchUserProjects())
+  fetchUserProjects: developerId => dispatch(fetchUserProjects(developerId))
 })
 
 export default connect(mapState, mapDispatch)(Landing)
+
+// userInfo: [
+//   {
+//     name: 'Stackathon',
+//     id: 'stackathon-4369',
+//     projectToken: 'tokenOne',
+//     projectSecret: 'secretOne'
+//   },
+//   {
+//     name: 'HoopChat',
+//     id: 'hoopchat',
+//     projectToken: 'tokenTwo',
+//     projectSecret: 'secretTwo'
+//   },
+//   {
+//     name: 'Moon Landing 1969',
+//     id: 'moon-landing-1969',
+//     projectToken: 'tokenThree',
+//     projectSecret: 'secretThree'
+//   }
+// ],

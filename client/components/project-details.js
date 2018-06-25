@@ -3,36 +3,38 @@ import {Input} from 'react-materialize'
 
 export const ProjectDetails = props => {
   return (
-    <div className="col m4 s6">
+    <form className="col m4 s6">
       <Input
         s={6}
         label="Project Name"
         name="projectName"
-        defaultValue={props.userInfo.name}
+        defaultValue={props.userInfo.projectName}
         disabled
       />
       <Input
         s={6}
-        label="Project ID"
-        name="projectID"
-        defaultValue={props.userInfo.id}
+        label="Project URL"
+        name="projectURL"
+        defaultValue={props.userInfo.website}
         disabled
       />
       <Input
-        s={4}
+        s={6}
         label="API Token"
-        name="ApiToken"
-        defaultValue={props.userInfo.projectToken}
+        name="apiToken"
+        type="textarea"
+        id="apiTextArea"
+        defaultValue={props.userInfo.APItoken}
         disabled
       />
       <Input
         s={6}
         label="Client Secret"
         name="clientSecret"
-        defaultValue={props.userInfo.projectSecret}
+        defaultValue={props.userInfo.secret}
         disabled
       />
-    </div>
+    </form>
   )
 }
 export default ProjectDetails

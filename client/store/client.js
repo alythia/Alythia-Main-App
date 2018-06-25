@@ -43,12 +43,12 @@ export default function(state = initialState, action) {
     case ADDED_NEW_PROJECT: {
       return {
         ...state,
-        projects: [...state.projects, action.project]
+        userProjects: [...state.userProjects, action.project]
       }
     }
     case FETCHED_DEVELOPER_PROJECTS: {
       return {
-        ...state
+        userProjects: action.projects
       }
     }
     default: {
