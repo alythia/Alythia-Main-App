@@ -6,6 +6,13 @@ export const ProjectDetails = props => {
     <form className="col m4 s6">
       <Input
         s={6}
+        label="Your Client ID"
+        name="projectID"
+        defaultValue={props.userInfo.client_id}
+        disabled
+      />
+      <Input
+        s={6}
         label="Project Name"
         name="projectName"
         defaultValue={props.userInfo.projectName}
@@ -20,18 +27,18 @@ export const ProjectDetails = props => {
       />
       <Input
         s={6}
-        label="API Token"
+        label="Public Key"
         name="apiToken"
         type="textarea"
         id="apiTextArea"
-        defaultValue={props.userInfo.APItoken}
+        defaultValue={props.userInfo.public_key}
         disabled
       />
       <Input
         s={6}
-        label="Client Secret"
+        label="Secret Key"
         name="clientSecret"
-        defaultValue={props.userInfo.secret}
+        defaultValue={props.userInfo.secret_key}
         disabled
       />
     </form>
