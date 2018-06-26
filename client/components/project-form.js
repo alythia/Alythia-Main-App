@@ -15,14 +15,6 @@ export const ProjectForm = props => {
       />
       <Input
         s={6}
-        label="Project ID"
-        name="projectID"
-        id="input-margin"
-        defaultValue={props.newProj.projectID}
-        onChange={handleChange}
-      />
-      <Input
-        s={6}
         label="Authorized Domain"
         name="website"
         defaultValue={props.newProj.website}
