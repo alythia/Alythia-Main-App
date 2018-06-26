@@ -3,6 +3,7 @@
 import React, {Component} from 'react'
 import UniqueQRCode from './qrcode-generator'
 import axios from 'axios'
+import queryString from 'query-string'
 // import generateUUID from '../uuid-generator'
 
 class QRCodeLanding extends Component {
@@ -11,18 +12,21 @@ class QRCodeLanding extends Component {
     this.state = {
       pageLoaded: false,
       token: '',
-      message: ''
+      message: '',
+      pageInfo: {}
     }
   }
 
   async componentDidMount() {
-    const token = this.props.location.search.split('=')[1]
+    const {public_key, token} = queryString.parse(this.props.location.search);
     try {
-      const result = await axios.post('/api/clients/verify', {token})
+      const result = await axios.post('/api/clients/verify', {token, public_key})
+      console.log(result.data);
       if (result.status === 200) {
         this.setState({
           token,
-          pageLoaded: true
+          pageLoaded: true,
+          pageInfo: result.data
         })
       }
     } catch (error) {
@@ -36,7 +40,7 @@ class QRCodeLanding extends Component {
 
   render() {
     // TODO: discuss how to give this a 10 minute shelf life
-    const {token, message, pageLoaded} = this.state
+    const {token, message, pageLoaded, pageInfo} = this.state
 
     if (!pageLoaded) {
       return (
@@ -50,15 +54,15 @@ class QRCodeLanding extends Component {
       )
     } else if (pageLoaded && token.length > 0) {
       return (
-        <div className="row container center">
+        <div className="row container center animated zoomIn">
           <br />
           <h5 className="header">Scan to Authenticate with Alythia...</h5>
           <br />
-          {<UniqueQRCode id="QRCodeRender" apiToken={token} />}
+          {<UniqueQRCode id="QRCodeRender" apiToken={pageInfo} />}
           <br />
           <br />
           <h5 className="grey-text text-darken-3 lighten-3">
-            ...and continue to [www.placeholder.com]
+            ...and continue to {pageInfo.projectName} {pageInfo.website}
           </h5>
         </div>
       )
