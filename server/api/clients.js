@@ -12,13 +12,10 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/register', async (req, res, next) => {
+router.post('/new-project', async (req, res, next) => {
   try {
-    const {projectName, website} = req.body
-    const result = await Client.create({
-      projectName,
-      website
-    })
+    console.log(req.body)
+    const result = await Client.create(req.body)
     res.json(result)
   } catch (err) {
     next(err)

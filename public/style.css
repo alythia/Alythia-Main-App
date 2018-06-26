@@ -1,5 +1,6 @@
 body {
   font-family: 'Lato', sans-serif;
+  background-color: rgb(248, 248, 248);
 }
 
 a {
@@ -198,6 +199,7 @@ h5 {
 
 .projects-container {
   background-color: #e7ecef;
+  min-height: 300px;
   margin-bottom: -20px;
 }
 
@@ -208,8 +210,8 @@ h5 {
 }
 
 .landing-image {
-  background-image: url('https://i.imgur.com/Rl04WSK.jpg');
-  background-size: 76% auto;
+  background-image: url('https://i.imgur.com/JEx1aL7.jpg');
+  background-size: 100% auto;
   background-position: top right;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -221,4 +223,12 @@ h5 {
 
 .nav-text {
   font-size: 1.2rem;
+}
+
+.about-us {
+  margin-top: 75px;
+}
+
+#apiTextArea {
+  height: 64px;
 }

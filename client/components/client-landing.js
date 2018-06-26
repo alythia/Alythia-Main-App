@@ -1,20 +1,24 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {Parallax} from 'react-materialize'
+import {addNewProject, fetchUserProjects} from '../store/client'
 import Project from './project-card'
+import {me} from '../store'
+
 
 class Landing extends Component {
   state = {
-    userInfo: [
-      {name: 'Stackathon', id: 'stackathon-4369'},
-      {name: 'HoopChat', id: 'hoopchat'},
-      {name: 'Moon Landing 1969', id: 'moon-landing-1969'}
-    ],
     newProj: {
       projectName: '',
-      projectID: '',
-      domain: ''
+      website: '',
+      developerId: ''
+    }
+  }
+
+  componentDidMount = async () => {
+    await this.props.loadInitialData()
+    if (this.props.developerId) {
+      await this.props.fetchUserProjects(this.props.developerId)
+      this.setState({newProj: {developerId: this.props.developerId}})
     }
   }
 
@@ -24,9 +28,22 @@ class Landing extends Component {
     this.setState({newProj: change})
   }
 
+  generateNewToken = event => {
+    console.log('GENERATE NEW TOKEN')
+  }
+
+  generateNewSecret = event => {
+    // Generate new client secret
+    console.log('GENERATE NEW SECRET')
+  }
+
   handleSubmit = () => {
     $('#close').modal('close')
-    console.log('Axios saves the world!', this.state.newProj)
+    this.props.addNewProject(this.state.newProj)
+  }
+
+  handleDetailClose = () => {
+    $('#closeDetails').modal('close')
   }
 
   render() {
@@ -50,35 +67,30 @@ class Landing extends Component {
           </div>
         </section>
         <section className="row projects-container">
-          {this.props.isLoggedIn ? (
-            <div className="row col push-m2 m8 project-boxes">
-              <Project
-                userInfo="New Project"
-                handleChange={this.handleChange}
-                handleSubmit={this.handleSubmit}
-                newProj={this.state.newProj}
-              />
-              {this.state.userInfo.map(ele => (
-                <Project userInfo={ele} key={ele.id} />
-              ))}
-            </div>
-          ) : (
-            <div
-              className="row col push-m2 m8 description"
-              style={{height: '250px'}}
-            >
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-                placerat volutpat porttitor. Aenean sed ullamcorper leo. Ut
-                risus nunc, fermentum ut dapibus nec, interdum a nisl. In mollis
-                dictum ante, sit amet placerat quam. Donec volutpat orci quis
-                enim tristique, sit amet condimentum nisi tincidunt. Suspendisse
-                potenti. Quisque eleifend lacus augue, eu hendrerit dui
-                dignissim eget. Maecenas nec magna lacinia, dapibus justo eget,
-                molestie neque.
-              </p>
-            </div>
-          )}
+          <div className="row col push-m2 m8 project-boxes">
+            <Project
+              newProject="New Project"
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+              newProj={this.state.newProj}
+            />
+            {this.props.userProjects ? (
+              this.props.userProjects.map(ele => {
+                console.log(ele)
+                return (
+                  <Project
+                    userInfo={ele}
+                    key={ele.id}
+                    generateNewToken={this.generateNewToken}
+                    generateNewSecret={this.generateNewSecret}
+                    handleSubmit={this.handleDetailClose}
+                  />
+                )
+              })
+            ) : (
+              <div />
+            )}
+          </div>
         </section>
       </React.Fragment>
     )
@@ -86,7 +98,35 @@ class Landing extends Component {
 }
 
 const mapState = state => ({
-  isLoggedIn: !!state.developer.id
+  userProjects: state.client.userProjects.clients,
+  developerId: state.developer.id
 })
 
-export default connect(mapState)(Landing)
+const mapDispatch = dispatch => ({
+  loadInitialData: () => dispatch(me()),
+  addNewProject: project => dispatch(addNewProject(project)),
+  fetchUserProjects: developerId => dispatch(fetchUserProjects(developerId))
+})
+
+export default connect(mapState, mapDispatch)(Landing)
+
+// userInfo: [
+//   {
+//     name: 'Stackathon',
+//     id: 'stackathon-4369',
+//     projectToken: 'tokenOne',
+//     projectSecret: 'secretOne'
+//   },
+//   {
+//     name: 'HoopChat',
+//     id: 'hoopchat',
+//     projectToken: 'tokenTwo',
+//     projectSecret: 'secretTwo'
+//   },
+//   {
+//     name: 'Moon Landing 1969',
+//     id: 'moon-landing-1969',
+//     projectToken: 'tokenThree',
+//     projectSecret: 'secretThree'
+//   }
+// ],
