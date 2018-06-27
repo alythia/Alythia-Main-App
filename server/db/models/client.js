@@ -1,5 +1,6 @@
-const Sequelize = require('sequelize')
+const crypto = require('crypto')
 const db = require('../db')
+const Sequelize = require('sequelize')
 
 const Client = db.define('client', {
   projectName: {
@@ -8,30 +9,37 @@ const Client = db.define('client', {
     allowNull: false,
     validate: {notEmpty: true}
   },
-
-  projectID: {
-    type: Sequelize.STRING // Auto-generates
-  },
-
-  url: {
+  website: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate: {
-      notEmpty: true,
-      isUrl: true
-    }
   },
-
-  ApiToken: {
+  client_id:{
     type: Sequelize.UUID,
-    defaultValue: Sequelize.UUIDV4 // Auto-generates
+    defaultValue: Sequelize.UUIDV1
+  },
+  secret_key: {
+    type: Sequelize.STRING,
+    unique: true,
+  },
+  public_key: {
+    type: Sequelize.STRING,
+    unique: true
   }
 })
 
-// Auto-generates project ID
-Client.afterCreate(function(client) {
-  client.projectID = `${client.projectName.split(' ').join('-')}-${client.id}`
-  client.save()
-})
-
 module.exports = Client
+
+Client.generateSecretKey = function() {
+  return crypto.randomBytes(16).toString('base64')
+}
+
+Client.generatePublicKey = function() {
+  return crypto.randomBytes(32).toString('base64')
+}
+
+const generateToken = client => {
+  client.secret_key = Client.generateSecretKey()
+  client.public_key = Client.generatePublicKey()
+}
+
+Client.beforeCreate(generateToken)

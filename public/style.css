@@ -1,5 +1,6 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Lato', sans-serif;
+  background-color: rgb(248, 248, 248);
 }
 
 a {
@@ -10,12 +11,224 @@ label {
   display: block;
 }
 
-nav a {
-  display: inline-block;
-  margin: 1em;
-}
-
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+h1 {
+  font-family: 'Ubuntu';
+  font-size: 9rem;
+  color: #003559;
+}
+
+h5 {
+  font-family: 'Lato';
+  font-size: 2rem;
+  color: #b9d6f2;
+}
+
+#nav ul li {
+  color: #fff !important;
+  font-family: 'Ubuntu';
+  background-color: rgba(0, 0, 0, 0);
+  font-size: 2rem;
+}
+
+#nav li:hover,
+#nav li:active {
+  border-bottom: 2px solid #2e86de;
+}
+
+.nav-container {
+  margin: 0 auto;
+  width: 90%;
+}
+
+#QRCodeRender {
+  height: 300px;
+}
+
+/* Login and Signin Forms */
+
+.btn_google {
+  display: flex;
+  background-color: rgb(245, 245, 245);
+  width: 85%;
+  height: 35px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14);
+  border-radius: 3px;
+  justify-content: center;
+  align-content: center;
+  margin: 15px 0 5px 0;
+}
+
+.btn_google > img {
+  margin-right: 15px;
+}
+.btn_google > p {
+  margin: auto 0;
+  text-transform: uppercase;
+  color: teal;
+}
+
+.form-container {
+  width: 33%;
+  padding: 40px;
+  padding-top: 10px;
+  margin-top: 50px;
+}
+
+#form-input {
+  width: 100%;
+}
+
+#login {
+  width: 85%;
+  display: flex;
+  justify-content: center;
+}
+
+.input-field {
+  margin: 10px auto;
+  width: 100%;
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  border-width: 5px;
+  border-color: black;
+}
+
+/* Landing Page */
+
+.landingHeader {
+  color: rgba(0, 0, 0, 0.87);
+  font-family: 'Google Sans', sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 40px;
+  margin-bottom: 8px;
+}
+
+.landingInfo {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.landingCard {
+  background-color: #fff;
+  border: 1px solid rgb(236, 236, 236);
+  border-radius: 3px;
+  height: 150px;
+  padding: 12px;
+  box-shadow: 4px 4px rgb(201, 201, 201, 0.2);
+  margin-bottom: 20px;
+}
+
+.landingCard:hover {
+  background-color: rgb(180, 180, 180);
+}
+
+.landingCard > .name {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+  word-wrap: break-word;
+}
+
+.landingCard > .id {
+  align-self: flex-start;
+  color: rgba(0, 0, 0, 0.38);
+  cursor: text;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0 -2px;
+  min-width: 0;
+  padding: 0 2px;
+  word-wrap: break-word;
+}
+
+.id .btn-floating {
+  margin-top: 20px;
+}
+
+.id .btn-floating {
+  margin-top: 20px;
+}
+
+.parallax-container {
+  margin-top: -64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  height: 72vh;
+}
+
+.parallax-container .parallax {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.parallax-container .parallax img {
+  opacity: 1;
+  position: absolute;
+  left: 50%;
+  height: 100%;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.project-boxes {
+  top: -50px;
+}
+
+.projects-container {
+  background-color: #e7ecef;
+  min-height: 300px;
+  margin-bottom: -20px;
+}
+
+.description {
+  color: #061a40;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.landing-image {
+  background-image: url('https://i.imgur.com/JEx1aL7.jpg');
+  background-size: 100% auto;
+  background-position: top right;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.main-header {
+  margin-bottom: -1px;
+}
+
+.nav-text {
+  font-size: 1.2rem;
+}
+
+.about-us {
+  margin-top: 75px;
+}
+
+#apiTextArea {
+  height: 64px;
 }
