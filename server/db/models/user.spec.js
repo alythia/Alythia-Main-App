@@ -21,14 +21,14 @@ describe('User model', () => {
       })
     })
 
-    it('returns true if there is an existing user', () => {
+    xit('returns true if there is an existing user', () => {
       expect(dave.name).to.be.equal('dave')
     })
 
-    it('returns true if there is an existing user email', () => {
+    xit('returns true if there is an existing user email', () => {
       expect(dave.email).to.be.equal('dmt@email.com')
     })
-    it('returns whether user is active', () => {
+    xit('returns whether user is active', () => {
       expect(dave.active).to.be.equal(true)
     })
   }) // end describe('correctPassword')
