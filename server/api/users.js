@@ -8,7 +8,7 @@ router.get('/', async (req, res, next) => {
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ['id', 'email']
+      attributes: ['UUID', 'email']
     })
     res.json(users)
   } catch (err) {
@@ -17,9 +17,8 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  const {email} = req.body
   try {
-    const result = await User.create({email})
+    const result = await User.create(req.body)
     res.json(result)
   } catch (err) {
     next(err)
