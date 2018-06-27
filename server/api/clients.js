@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {Client} = require('../db/models')
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -14,7 +14,6 @@ router.get('/', async (req, res, next) => {
 
 router.post('/new-project', async (req, res, next) => {
   try {
-    console.log(req.body)
     const result = await Client.create(req.body)
     res.json(result)
   } catch (err) {
@@ -23,54 +22,43 @@ router.post('/new-project', async (req, res, next) => {
 })
 
 router.post('/verify', async (req, res, next) => {
-  const {public_key, token} = req.body;
+  const {client_id, token} = req.body
 
   try {
-    const result = await Client.findOne({where: {public_key}})
-    console.log(result);
-    // if public key exists, veryfy token using secret key
-    if (result){
-      const { secret_key, website, projectName } = result;
-      jwt.verify(token, secret_key, (err, decoded) => {
-        if(!err){
-          jwt.sign({
-            website,
-            projectName
-          }, secret_key, (err, data) => {
-            if(!err){
-              setTimeout(() => {
-                res.send({
-                  website,
-                  projectName
-                });
-              }, 3000)
-            }
-          });
-          
-        }else{
-          res.status(401).send('Invalid token')
-        }
-      });
-    
-    }
-    else res.status(401).send('Invalid token')
+    const result = await Client.findOne({where: {client_id}})
+    if (result) {
+      const {secret_key} = result
+      setTimeout(() => {
+        jwt.verify(token, secret_key, (err, decoded) => {
+          if (!err) {
+            res.send(decoded)
+          } else {
+            res.status(401).send()
+          }
+        })
+      }, 2000)
+    } else res.status(401).send('Invalid token')
   } catch (error) {
     console.log('/client/verify', error.message)
     next(error)
   }
 })
 
-router.get('/:client_id', async (req, res, next) => {
-  const { client_id } = req.params;
+router.post('/:client_id', async (req, res, next) => {
+  const {client_id} = req.params
   try {
     const client = await Client.findOne({
       where: {client_id}
     })
-    const result = { 
-      projectName: client.projectName, 
-      website: client.website 
-    };
-    res.json(result)
+
+    const {secret_key, public_key, projectName, website} = client
+    const result = {
+      public_key,
+      projectName,
+      website
+    }
+    const token = jwt.sign(result, secret_key)
+    res.redirect(`/auth/identify?token=${token}&client_id=${client_id}`)
   } catch (error) {
     next(error)
   }
