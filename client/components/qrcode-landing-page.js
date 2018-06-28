@@ -5,6 +5,9 @@ import UniqueQRCode from './qrcode-generator'
 import axios from 'axios'
 import queryString from 'query-string'
 // import generateUUID from '../uuid-generator'
+import io from 'socket.io-client'
+
+const socket = io(window.location.origin)
 
 class QRCodeLanding extends Component {
   constructor() {
@@ -20,6 +23,9 @@ class QRCodeLanding extends Component {
   async componentDidMount() {
     const query = queryString.parse(this.props.location.search)
     const {client_id, token} = query
+    socket.on('Hello', () => {
+      alert('Mounted')
+    })
     try {
       const result = await axios.post('/api/clients/verify', {token, client_id})
       if (result.status === 200) {

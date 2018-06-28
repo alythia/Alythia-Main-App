@@ -4,7 +4,6 @@ import {addNewProject, fetchUserProjects} from '../store/client'
 import Project from './project-card'
 import {me} from '../store'
 
-
 class Landing extends Component {
   state = {
     newProj: {
@@ -76,7 +75,6 @@ class Landing extends Component {
             />
             {this.props.userProjects ? (
               this.props.userProjects.map(ele => {
-                console.log(ele)
                 return (
                   <Project
                     userInfo={ele}
