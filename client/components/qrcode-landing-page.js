@@ -6,6 +6,7 @@ import axios from 'axios'
 import queryString from 'query-string'
 // import generateUUID from '../uuid-generator'
 import io from 'socket.io-client'
+import Spinner from 'react-spinkit'
 
 const socket = io(window.location.origin)
 
@@ -24,7 +25,10 @@ class QRCodeLanding extends Component {
     const query = queryString.parse(this.props.location.search)
     const {client_id, token} = query
     socket.on('Hello', () => {
-      alert('Mounted')
+      const qr = document.getElementById('qr')
+      qr.classList.add('hidden')
+      const loader = document.querySelector('.hidden')
+      loader.classList.remove('hidden')
     })
     try {
       const result = await axios.post('/api/clients/verify', {token, client_id})
@@ -63,12 +67,20 @@ class QRCodeLanding extends Component {
           <br />
           <h5 className="header">Scan to Authenticate with Alythia...</h5>
           <br />
-          {
-            <UniqueQRCode
-              id="QRCodeRender"
-              apiToken={JSON.stringify(pageInfo)}
-            />
-          }
+          <div id="QRcontainer">
+            <div className="hidden">
+              <Spinner className="qrLoader" name="cube-grid" />
+            </div>
+            {
+              <div id="qr">
+                <UniqueQRCode
+                  id="QRCodeRender"
+                  apiToken={JSON.stringify(pageInfo)}
+                />
+              </div>
+            }
+          </div>
+
           <br />
           <br />
           <h5 className="grey-text text-darken-3 lighten-3">
