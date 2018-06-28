@@ -18,10 +18,10 @@ class QRCodeLanding extends Component {
   }
 
   async componentDidMount() {
-    const {public_key, token} = queryString.parse(this.props.location.search);
+    const query = queryString.parse(this.props.location.search)
+    const {client_id, token} = query
     try {
-      const result = await axios.post('/api/clients/verify', {token, public_key})
-      console.log(result.data);
+      const result = await axios.post('/api/clients/verify', {token, client_id})
       if (result.status === 200) {
         this.setState({
           token,
@@ -41,7 +41,6 @@ class QRCodeLanding extends Component {
   render() {
     // TODO: discuss how to give this a 10 minute shelf life
     const {token, message, pageLoaded, pageInfo} = this.state
-
     if (!pageLoaded) {
       return (
         <div className="row container center">
@@ -58,7 +57,12 @@ class QRCodeLanding extends Component {
           <br />
           <h5 className="header">Scan to Authenticate with Alythia...</h5>
           <br />
-          {<UniqueQRCode id="QRCodeRender" apiToken={pageInfo} />}
+          {
+            <UniqueQRCode
+              id="QRCodeRender"
+              apiToken={JSON.stringify(pageInfo)}
+            />
+          }
           <br />
           <br />
           <h5 className="grey-text text-darken-3 lighten-3">
