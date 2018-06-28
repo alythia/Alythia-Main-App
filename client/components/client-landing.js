@@ -20,6 +20,9 @@ class Landing extends Component {
       await this.props.fetchUserProjects(this.props.developerId)
       this.setState({newProj: {developerId: this.props.developerId}})
     }
+
+    const navbar = document.querySelector('.navbar-fixed');
+    navbar.classList.remove('dark-navbar');
   }
 
   handleChange = e => {
