@@ -8,8 +8,11 @@ const jwt = require('jsonwebtoken')
 
 // Set to Heroku
 const redisClient = redis.createClient({
-  host: 'www.alythia.herokuapp.com',
-  port: 6379
+  host: 'ec2-52-23-66-23.compute-1.amazonaws.com',
+  port: 35149,
+  password: 'p0adc8345fd36407381319fa474d9bb82a952ca7fbc237d770b321799c7fd6365',
+  url:
+    'redis://h:p0adc8345fd36407381319fa474d9bb82a952ca7fbc237d770b321799c7fd6365@ec2-52-23-66-23.compute-1.amazonaws.com:35149'
 })
 
 redisClient.on('ready', function() {
