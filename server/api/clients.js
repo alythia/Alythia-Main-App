@@ -15,6 +15,11 @@ const jwt = require('jsonwebtoken')
 //     'redis://h:p0adc8345fd36407381319fa474d9bb82a952ca7fbc237d770b321799c7fd6365@ec2-52-23-66-23.compute-1.amazonaws.com:35149'
 // })
 
+// const redisClient = redis.createClient({
+//   host: 'localhost',
+//   port: 6379
+// })
+
 // redisClient.on('ready', function() {
 //   console.log('Redis is ready')
 // })
@@ -87,10 +92,8 @@ router.get('/:client_id', async (req, res, next) => {
 
     const {secret_key, public_key, projectName, website} = client
     const result = {
-      public_key,
-      projectName,
-      website,
-      UUID
+      clientIdentifier: client_id,
+      transactionIdentifier: UUID
     }
     const token = jwt.sign(result, secret_key)
     console.log(token, client_id)
