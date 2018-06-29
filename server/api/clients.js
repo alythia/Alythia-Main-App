@@ -7,12 +7,18 @@ const jwt = require('jsonwebtoken')
 // -------------------------------------------------------------
 
 // Set to Heroku
+// const redisClient = redis.createClient({
+//   host: 'ec2-52-23-66-23.compute-1.amazonaws.com',
+//   port: 35149,
+//   password: 'p0adc8345fd36407381319fa474d9bb82a952ca7fbc237d770b321799c7fd6365',
+//   url:
+//     'redis://h:p0adc8345fd36407381319fa474d9bb82a952ca7fbc237d770b321799c7fd6365@ec2-52-23-66-23.compute-1.amazonaws.com:35149'
+// })
+
+// Set to LocalHost
 const redisClient = redis.createClient({
-  host: 'ec2-52-23-66-23.compute-1.amazonaws.com',
-  port: 35149,
-  password: 'p0adc8345fd36407381319fa474d9bb82a952ca7fbc237d770b321799c7fd6365',
-  url:
-    'redis://h:p0adc8345fd36407381319fa474d9bb82a952ca7fbc237d770b321799c7fd6365@ec2-52-23-66-23.compute-1.amazonaws.com:35149'
+  host: 'localhost',
+  port: 6379
 })
 
 redisClient.on('ready', function() {
@@ -87,10 +93,8 @@ router.post('/:client_id', async (req, res, next) => {
 
     const {secret_key, public_key, projectName, website} = client
     const result = {
-      public_key,
-      projectName,
-      website,
-      UUID
+      clientIdentifier: client_id,
+      transactionIdentifier: UUID
     }
     const token = jwt.sign(result, secret_key)
     res.redirect(`/auth/identify?token=${token}&client_id=${client_id}`)

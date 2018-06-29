@@ -1,7 +1,12 @@
 const router = require('express').Router()
 const axios = require('axios')
 const {User} = require('../db/models')
-const redisClient = require('./clients').redisClient
+const redis = require('redis')
+
+const redisClient = redis.createClient({
+  host: 'localhost',
+  port: 6379
+})
 
 module.exports = router
 
@@ -34,6 +39,9 @@ router.post('/verify/:transactionIdentifier', async (req, res, next) => {
     // Verify user
     const userEmail = req.body.email
     const userIdentifier = req.body.userIdentifier
+    const clientIdentifier = req.body.clientIdentifier
+    const transactionIdentifier = req.body.transactionIdentifier
+
     const user = await User.findOne({where: {email: userEmail}})
 
     if (!user) {
@@ -45,8 +53,9 @@ router.post('/verify/:transactionIdentifier', async (req, res, next) => {
     }
 
     // Verify client and post to Client backend
-    const clientIdentifier = req.body.clientIdentifier
-    const transactionIdentifier = req.params.transactionIdentifier
+
+    console.log('TRANSACTION ID: ', transactionIdentifier)
+    console.log('CLIENT ID: ', clientIdentifier)
 
     await redisClient.get(transactionIdentifier, async function(err, reply) {
       if (err) {
@@ -59,6 +68,7 @@ router.post('/verify/:transactionIdentifier', async (req, res, next) => {
             `http://172.16.23.189:8023/api/verify/${clientIdentifier}`,
             {email: userEmail}
           )
+          console.log(data)
           const {io} = require('../index')
           io.emit('authorized', data)
           res.json(data)
