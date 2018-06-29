@@ -1,30 +1,33 @@
 import axios from 'axios'
 
-/**
- * ACTION TYPES
- */
 const ADDED_NEW_PROJECT = 'ADDED_NEW_PROJECT'
-const FETCHED_DEVELOPER_PROJECTS = 'FETCHED_USER_PROJECTS'
+const FETCHED_DEVELOPER_PROJECTS = 'FETCHED_DEVELOPER_PROJECTS'
+const SET_CURRENT_PROJECT = 'CURRENT_PROJECT'
 
-/**
- * INITIAL STATE
- */
 const initialState = {
-  userProjects: []
+  userProjects: [],
+  currentProject: {}
 }
 
-/**
- * ACTION CREATORS
- */
-const addedNewProject = project => ({type: ADDED_NEW_PROJECT, project})
+const setCurrentProject = currentProject => ({
+  type: SET_CURRENT_PROJECT,
+  currentProject
+})
+const addedNewProject = project => ({
+  type: ADDED_NEW_PROJECT,
+  project
+})
 const fetchedUserProjects = projects => ({
   type: FETCHED_DEVELOPER_PROJECTS,
   projects
 })
 
-/**
- * THUNK CREATORS
- */
+export const addedCurrentProject = currentProject => {
+  return dispatch => {
+    dispatch(setCurrentProject(currentProject))
+  }
+}
+
 export const addNewProject = project => async dispatch => {
   const {data} = await axios.post('/api/clients/new-project', project)
   dispatch(addedNewProject(data))
@@ -32,12 +35,9 @@ export const addNewProject = project => async dispatch => {
 
 export const fetchUserProjects = developerId => async dispatch => {
   const {data} = await axios.get(`/api/developers/${developerId}/projects`)
-  dispatch(fetchedUserProjects(data))
+  dispatch(fetchedUserProjects(data.clients))
 }
 
-/**
- * REDUCER
- */
 export default function(state = initialState, action) {
   switch (action.type) {
     case ADDED_NEW_PROJECT: {
@@ -48,11 +48,18 @@ export default function(state = initialState, action) {
     }
     case FETCHED_DEVELOPER_PROJECTS: {
       return {
+        ...state,
         userProjects: action.projects
       }
     }
+    case SET_CURRENT_PROJECT: {
+      return{
+        ...state,
+        currentProject: action.currentProject
+      }
+    }
     default: {
-      return {...state}
+      return state
     }
   }
 }

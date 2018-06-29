@@ -10,7 +10,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       <div className="nav-wrapper transparent nav-container">
         <a href="/">Alythia</a>
         {isLoggedIn ? (
-          <ul id="nav-mobile" className="right hide-on-med-and-down nav-text">
+          <ul id="nav-mobile" className="right nav-text">
             <li>
               <Link to="/" className="nav-text white-text">
                 Home
@@ -23,7 +23,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             </li>
           </ul>
         ) : (
-          <ul id="nav-mobile" className="right hide-on-med-and-down">
+          <ul id="nav-mobile" className="right">
             <li>
               <Link to="/login" className="nav-text white-text">
                 Login
