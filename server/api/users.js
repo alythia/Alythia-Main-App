@@ -48,23 +48,23 @@ router.post('/verify/:transactionIdentifier', async (req, res, next) => {
     const clientIdentifier = req.body.clientIdentifier
     const transactionIdentifier = req.params.transactionIdentifier
 
-    await redisClient.get(transactionIdentifier, async function(err, reply) {
-      if (err) {
-        console.log('Redis error on GET: ', err)
-      } else {
-        console.log('Redis reply on GET: ', reply)
-        if (user && clientIdentifier === reply) {
-          // After user and client are verified, post to client user email
-          const {data} = await axios.post(
-            `http://172.16.23.189:8023/api/verify/${clientIdentifier}`,
-            {email: userEmail}
-          )
-          const {io} = require('../index')
-          io.emit('authorized', data)
-          res.json(data)
-        }
-      }
-    })
+//     await redisClient.get(transactionIdentifier, async function(err, reply) {
+//       if (err) {
+//         console.log('Redis error on GET: ', err)
+//       } else {
+//         console.log('Redis reply on GET: ', reply)
+//         if (user && clientIdentifier === reply) {
+//           // After user and client are verified, post to client user email
+//           const {data} = await axios.post(
+//             `http://172.16.23.189:8023/api/verify/${clientIdentifier}`,
+//             {email: userEmail}
+//           )
+//           const {io} = require('../index')
+//           io.emit('authorized', data)
+//           res.json(data)
+//         }
+//       }
+//     })
   } catch (error) {
     next(error)
   }
