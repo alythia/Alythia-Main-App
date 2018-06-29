@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const uuidv4 = require('uuid/v4')
-const redis = require('redis')
+const redisClient = require('redis').createClient(process.env.REDIS_URL)
 const {Client} = require('../db/models')
 const jwt = require('jsonwebtoken')
 
@@ -15,15 +15,15 @@ const jwt = require('jsonwebtoken')
 //     'redis://h:p0adc8345fd36407381319fa474d9bb82a952ca7fbc237d770b321799c7fd6365@ec2-52-23-66-23.compute-1.amazonaws.com:35149'
 // })
 
-// redisClient.on('ready', function() {
-//   console.log('Redis is ready')
-// })
+redisClient.on('ready', function() {
+  console.log('Redis is ready')
+})
 
-// redisClient.on('error', function(err) {
-//   console.log(
-//     'error event - ' + redisClient.host + ':' + redisClient.port + ' - ' + err
-//   )
-// })
+redisClient.on('error', function(err) {
+  console.log(
+    'error event - ' + redisClient.host + ':' + redisClient.port + ' - ' + err
+  )
+})
 
 // -------------------------------------------------------------
 
@@ -79,11 +79,11 @@ router.get('/:client_id', async (req, res, next) => {
       where: {client_id}
     })
 
-//     await redisClient.set(UUID, client_id, function(err, reply) {
-//       err
-//         ? console.log('Redis error on SET: ', err)
-//         : console.log('Redis SET: ', `${UUID}: ${client_id}`)
-//     })
+    await redisClient.set(UUID, client_id, function(err, reply) {
+      err
+        ? console.log('Redis error on SET: ', err)
+        : console.log('Redis SET: ', `${UUID}: ${client_id}`)
+    })
 
     const {secret_key, public_key, projectName, website} = client
     const result = {
