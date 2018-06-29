@@ -61,11 +61,8 @@
     "react-native-cli": "^2.0.1",
     "react-redux": "^5.0.2",
     "react-router-dom": "^4.1.1",
-<<<<<<< HEAD
     "redis": "^2.8.0",
-=======
     "react-spinkit": "^3.0.0",
->>>>>>> master
     "redux": "^3.6.0",
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
