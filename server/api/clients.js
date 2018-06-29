@@ -6,7 +6,10 @@ const jwt = require('jsonwebtoken')
 
 // -------------------------------------------------------------
 
-const redisClient = redis.createClient({host: 'localhost', port: 6379})
+const redisClient = redis.createClient({
+  host: 'www.alythia.herokuapp.com',
+  port: 6379
+})
 
 redisClient.on('ready', function() {
   console.log('Redis is ready')
