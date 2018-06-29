@@ -7,7 +7,7 @@ class UniqueQRCode extends Component {
   render() {
     const apiToken = this.props.apiToken // client identifier
     const QRData = `${apiToken}`
-    return <QRCode value={QRData} />
+    return <QRCode size={256} value={QRData} />
   }
 }
 

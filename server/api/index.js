@@ -1,4 +1,5 @@
 const router = require('express').Router()
+
 module.exports = router
 
 router.use('/developers', require('./developers'))
@@ -6,6 +7,11 @@ router.use('/users', require('./users'))
 router.use('/clients', require('./clients').router)
 
 router.get('/test-qr', (req, res, next) => {
+<<<<<<< HEAD
+=======
+  const {io} = require('../../server/index')
+  io.emit('Hello')
+>>>>>>> master
   res.send('Testing successful for GET request')
 })
 

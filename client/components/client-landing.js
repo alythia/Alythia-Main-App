@@ -1,16 +1,24 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {addNewProject, fetchUserProjects} from '../store/client'
+import {Modal, Button, Icon} from 'react-materialize'
+import {
+  addNewProject,
+  fetchUserProjects,
+  addedCurrentProject
+} from '../store/client'
 import Project from './project-card'
 import {me} from '../store'
-
+import ProjectDetails from './project-details'
 
 class Landing extends Component {
-  state = {
-    newProj: {
-      projectName: '',
-      website: '',
-      developerId: ''
+  constructor() {
+    super()
+    this.state = {
+      newProj: {
+        projectName: '',
+        website: '',
+        developerId: ''
+      }
     }
   }
 
@@ -20,6 +28,9 @@ class Landing extends Component {
       await this.props.fetchUserProjects(this.props.developerId)
       this.setState({newProj: {developerId: this.props.developerId}})
     }
+
+    const navbar = document.querySelector('.navbar-fixed')
+    navbar.classList.remove('dark-navbar')
   }
 
   handleChange = e => {
@@ -40,10 +51,20 @@ class Landing extends Component {
   handleSubmit = () => {
     $('#close').modal('close')
     this.props.addNewProject(this.state.newProj)
+    this.props.fetchUserProjects(this.props.developerId)
   }
 
   handleDetailClose = () => {
     $('#closeDetails').modal('close')
+  }
+
+  handleProjectClick = id => {
+    const projects = this.props.userProjects
+    const currentProject = projects.filter(project => {
+      return project.id === id
+    })
+    this.props.addedCurrentProject(currentProject[0])
+    $('#closeDetails').modal('open')
   }
 
   render() {
@@ -75,15 +96,13 @@ class Landing extends Component {
               newProj={this.state.newProj}
             />
             {this.props.userProjects ? (
-              this.props.userProjects.map(ele => {
-                console.log(ele)
+              this.props.userProjects.map(project => {
                 return (
                   <Project
-                    userInfo={ele}
-                    key={ele.id}
-                    generateNewToken={this.generateNewToken}
-                    generateNewSecret={this.generateNewSecret}
-                    handleSubmit={this.handleDetailClose}
+                    userInfo={project}
+                    key={project.id}
+                    projectId={project.id}
+                    handleProjectClick={this.handleProjectClick}
                   />
                 )
               })
@@ -92,41 +111,50 @@ class Landing extends Component {
             )}
           </div>
         </section>
+        <Modal
+          header="Project Credentials"
+          id="closeDetails"
+          actions={
+            <div>
+              <Button
+                onClick={this.generateNewToken}
+                waves="light"
+                className="button-margin"
+              >
+                New API Token
+              </Button>
+              <Button
+                onClick={this.generateNewSecret}
+                waves="light"
+                className="button-margin"
+              >
+                New Client Secret
+              </Button>
+            </div>
+          }
+        >
+          <ProjectDetails
+            generateNewToken={this.generateNewToken}
+            generateNewSecret={this.generateNewSecret}
+          />
+        </Modal>
       </React.Fragment>
     )
   }
 }
 
 const mapState = state => ({
-  userProjects: state.client.userProjects.clients,
-  developerId: state.developer.id
+  userProjects: state.client.userProjects,
+  developerId: state.developer.id,
+  project: state.client.currentProject
 })
 
 const mapDispatch = dispatch => ({
   loadInitialData: () => dispatch(me()),
   addNewProject: project => dispatch(addNewProject(project)),
-  fetchUserProjects: developerId => dispatch(fetchUserProjects(developerId))
+  fetchUserProjects: developerId => dispatch(fetchUserProjects(developerId)),
+  addedCurrentProject: currentProject =>
+    dispatch(addedCurrentProject(currentProject))
 })
 
 export default connect(mapState, mapDispatch)(Landing)
-
-// userInfo: [
-//   {
-//     name: 'Stackathon',
-//     id: 'stackathon-4369',
-//     projectToken: 'tokenOne',
-//     projectSecret: 'secretOne'
-//   },
-//   {
-//     name: 'HoopChat',
-//     id: 'hoopchat',
-//     projectToken: 'tokenTwo',
-//     projectSecret: 'secretTwo'
-//   },
-//   {
-//     name: 'Moon Landing 1969',
-//     id: 'moon-landing-1969',
-//     projectToken: 'tokenThree',
-//     projectSecret: 'secretThree'
-//   }
-// ],

@@ -1,57 +1,68 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {Input, Button, Icon} from 'react-materialize'
 import {auth} from '../store'
 
-const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
-  return (
-    <div className="container row white z-depth-2 form-container">
-      <form onSubmit={handleSubmit} name={name}>
-        <center className="row">
-          <h4 className="teal-text">{displayName}</h4>
-          <div className="col s12">
-            <Input
-              type="email"
-              name="email"
-              htmlFor="email"
-              label="Email"
-              className="validate"
-            />
-          </div>
-          <div className="col s12">
-            <Input
-              type="password"
-              name="password"
-              htmlFor="password"
-              label="Password"
-              className="validate"
-            />
-          </div>
-        </center>
-        <center>
-          <Button id="login" type="submit">
-            <Icon left>email</Icon>
-            {displayName} with Email
-          </Button>
-          <a href="/auth/google">
-            <div className="btn_google center">
-              <img src="/img/btn_google.svg" />
-              <p>{displayName} with Google</p>
+class AuthForm extends Component {
+  constructor() {
+    super();
+  }
+
+  componentDidMount(){
+    const navbar = document.querySelector('.navbar-fixed');
+    navbar.classList.add('dark-navbar');
+  }
+
+  render() {
+    const {name, displayName, handleSubmit, error} = this.props
+    return (
+      <div className="container row white z-depth-2 form-container">
+        <form onSubmit={handleSubmit} name={name}>
+          <center className="row">
+            <h4 className="teal-text">{displayName}</h4>
+            <div className="col s12">
+              <Input
+                type="email"
+                name="email"
+                htmlFor="email"
+                label="Email"
+                className="validate"
+              />
             </div>
-          </a>
-          {error &&
-            error.response && (
-              <div className="error-container">
-                Confirm email address is valid.<br />Neither email nor password
-                can be blank.
+            <div className="col s12">
+              <Input
+                type="password"
+                name="password"
+                htmlFor="password"
+                label="Password"
+                className="validate"
+              />
+            </div>
+          </center>
+          <center>
+            <Button id="login" type="submit">
+              <Icon left>email</Icon>
+              {displayName} with Email
+            </Button>
+            <a href="/auth/google">
+              <div className="btn_google center">
+                <img src="/img/btn_google.svg" />
+                <p>{displayName} with Google</p>
               </div>
-            )}
-        </center>
-      </form>
-    </div>
-  )
+            </a>
+            {error &&
+              error.response && (
+                <div className="error-container">
+                  Confirm email address is valid.<br />Neither email nor
+                  password can be blank.
+                </div>
+              )}
+          </center>
+        </form>
+      </div>
+    )
+  }
 }
 
 const mapLogin = state => {
