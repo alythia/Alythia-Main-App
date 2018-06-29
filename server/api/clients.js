@@ -7,23 +7,23 @@ const jwt = require('jsonwebtoken')
 // -------------------------------------------------------------
 
 // Set to Heroku
-const redisClient = redis.createClient({
-  host: 'ec2-52-23-66-23.compute-1.amazonaws.com',
-  port: 35149,
-  password: 'p0adc8345fd36407381319fa474d9bb82a952ca7fbc237d770b321799c7fd6365',
-  url:
-    'redis://h:p0adc8345fd36407381319fa474d9bb82a952ca7fbc237d770b321799c7fd6365@ec2-52-23-66-23.compute-1.amazonaws.com:35149'
-})
+// const redisClient = redis.createClient({
+//   host: 'ec2-52-23-66-23.compute-1.amazonaws.com',
+//   port: 35149,
+//   password: 'p0adc8345fd36407381319fa474d9bb82a952ca7fbc237d770b321799c7fd6365',
+//   url:
+//     'redis://h:p0adc8345fd36407381319fa474d9bb82a952ca7fbc237d770b321799c7fd6365@ec2-52-23-66-23.compute-1.amazonaws.com:35149'
+// })
 
-redisClient.on('ready', function() {
-  console.log('Redis is ready')
-})
+// redisClient.on('ready', function() {
+//   console.log('Redis is ready')
+// })
 
-redisClient.on('error', function(err) {
-  console.log(
-    'error event - ' + redisClient.host + ':' + redisClient.port + ' - ' + err
-  )
-})
+// redisClient.on('error', function(err) {
+//   console.log(
+//     'error event - ' + redisClient.host + ':' + redisClient.port + ' - ' + err
+//   )
+// })
 
 // -------------------------------------------------------------
 
@@ -79,11 +79,11 @@ router.get('/:client_id', async (req, res, next) => {
       where: {client_id}
     })
 
-    await redisClient.set(UUID, client_id, function(err, reply) {
-      err
-        ? console.log('Redis error on SET: ', err)
-        : console.log('Redis SET: ', `${UUID}: ${client_id}`)
-    })
+//     await redisClient.set(UUID, client_id, function(err, reply) {
+//       err
+//         ? console.log('Redis error on SET: ', err)
+//         : console.log('Redis SET: ', `${UUID}: ${client_id}`)
+//     })
 
     const {secret_key, public_key, projectName, website} = client
     const result = {
