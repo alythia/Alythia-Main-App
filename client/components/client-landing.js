@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Modal, Button, Icon} from 'react-materialize'
+import {Modal, Button} from 'react-materialize'
 import {
   addNewProject,
   fetchUserProjects,
@@ -33,9 +33,9 @@ class Landing extends Component {
     navbar.classList.remove('dark-navbar')
   }
 
-  handleChange = e => {
+  handleChange = event => {
     let change = this.state.newProj
-    change[e.target.name] = e.target.value
+    change[event.target.name] = event.target.value
     this.setState({newProj: change})
   }
 

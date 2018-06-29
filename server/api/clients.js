@@ -1,6 +1,25 @@
 const router = require('express').Router()
+const uuidv4 = require('uuid/v4')
+const redis = require('redis')
 const {Client} = require('../db/models')
 const jwt = require('jsonwebtoken')
+
+// -------------------------------------------------------------
+
+const redisClient = redis.createClient({host: 'localhost', port: 6379})
+
+redisClient.on('ready', function() {
+  console.log('Redis is ready')
+})
+
+redisClient.on('error', function(err) {
+  console.log(
+    'error event - ' + redisClient.host + ':' + redisClient.port + ' - ' + err
+  )
+})
+
+// -------------------------------------------------------------
+
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -46,16 +65,25 @@ router.post('/verify', async (req, res, next) => {
 
 router.post('/:client_id', async (req, res, next) => {
   const {client_id} = req.params
+  const UUID = uuidv4()
+
   try {
     const client = await Client.findOne({
       where: {client_id}
+    })
+
+    await redisClient.set(UUID, client_id, function(err, reply) {
+      err
+        ? console.log('Redis error on SET: ', err)
+        : console.log('Redis SET: ', `${UUID}: ${client_id}`)
     })
 
     const {secret_key, public_key, projectName, website} = client
     const result = {
       public_key,
       projectName,
-      website
+      website,
+      UUID
     }
     const token = jwt.sign(result, secret_key)
     res.redirect(`/auth/identify?token=${token}&client_id=${client_id}`)

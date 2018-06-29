@@ -4,6 +4,7 @@ import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, Landing} from './components'
 import QRCodeLanding from './components/qrcode-landing-page'
+import Alythia from './components/button-test'
 import {me} from './store'
 
 /**
@@ -24,6 +25,7 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/auth/identify" component={QRCodeLanding} />
+        <Route path="/testbutton" component={Alythia} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
