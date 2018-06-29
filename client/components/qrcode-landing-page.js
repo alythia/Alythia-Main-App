@@ -30,9 +30,13 @@ class QRCodeLanding extends Component {
       const loader = document.querySelector('.hidden')
       loader.classList.remove('hidden')
     })
-    // socket.on('authorized', data => {
-    //   console.log('WE GOT SOME DATA: ', data)
-    // })
+    socket.on('authorized', async data => {
+      const loginIdentifier = data.loginIdentifier
+      console.log('LOGIN IDENTIFIER: ', loginIdentifier)
+      await axios.get(
+        `http://172.16.23.189:8023/api/logged-in/${loginIdentifier}`
+      )
+    })
     try {
       const result = await axios.post('/api/clients/verify', {token, client_id})
       if (result.status === 200) {
@@ -56,39 +60,58 @@ class QRCodeLanding extends Component {
     const {token, message, pageLoaded, pageInfo} = this.state
     if (!pageLoaded) {
       return (
-        <div className="row container center">
-          <br />
+        <div className="row container center progress-bar">
+          <div className="large-spacer" />
+          <div className="large-spacer" />
           <div className="progress">
-            <div className="indeterminate" />
+            <div id="indeterminate" className="indeterminate" />
           </div>
-          <br />
         </div>
       )
     } else if (pageLoaded && token.length > 0) {
       return (
         <div className="row container center animated zoomIn">
-          <br />
-          <h5 className="header">Scan to Authenticate with Alythia...</h5>
-          <br />
-          <div id="QRcontainer">
-            <div className="hidden">
-              <Spinner className="qrLoader" name="cube-grid" />
-            </div>
-            {
-              <div id="qr">
-                <UniqueQRCode
-                  id="QRCodeRender"
-                  apiToken={JSON.stringify(pageInfo)}
-                />
+          <div className="col s12 m12">
+            <div className="card-panel qr-container-main">
+              <div className="side-right">
+                <img src="/logo-dark.png" className="logo-qr-page" />
+                <div className="large-spacer" />
+                <div id="QRcontainer">
+                  <div className="hidden">
+                    <Spinner className="qrLoader" name="cube-grid" />
+                  </div>
+                  {
+                    <div id="qr">
+                      <UniqueQRCode
+                        id="QRCodeRender"
+                        apiToken={JSON.stringify(pageInfo)}
+                      />
+                    </div>
+                  }
+                </div>
+                <p className="confirm-text">
+                  Scan with your{' '}
+                  <span className="alythia-small-text">Alythia</span> app to
+                  confirm.
+                </p>
+                <div className="large-spacer" />
               </div>
-            }
+              <div className="side-left">
+                <div className="huge-spacer" />
+                <h5 className="left-align">
+                  Welcome to password-free <br />authentication through{' '}
+                  <span className="alythia-text">Alythia.</span>
+                </h5>
+                <br />
+                <div className="divider" />
+                <br />
+                <h5 className="grey-text text-lighten-1 left-align">
+                  <span className="alythia-text">{pageInfo.projectName}</span>{' '}
+                  would like to {<br />}confirm your identity.
+                </h5>
+              </div>
+            </div>
           </div>
-
-          <br />
-          <br />
-          <h5 className="grey-text text-darken-3 lighten-3">
-            ...and continue to {pageInfo.projectName} {pageInfo.website}
-          </h5>
         </div>
       )
     } else if (pageLoaded && message.length > 0) {
@@ -104,6 +127,3 @@ class QRCodeLanding extends Component {
 }
 
 export default QRCodeLanding
-
-// Example of URL when accessing Google's OAuth page:
-// https://accounts.google.com/signin/oauth/oauthchooseaccount?client_id=688598745912-cee2ph8rdac9bo3ie8ltbqtlhtsk8jfj.apps.googleusercontent.com&as=6gfwgrJUnpKvfyQYzOvxDw&destination=https%3A%2F%2Fcalm-brook-79071.herokuapp.com&approval_state=!ChRNREc5WGMxT204OVFLWkIyTjg1QxIfUTBickFvZm1qNWNhc0NEZU1wUEotOWE1OXduX1FSWQ%E2%88%99AB8iHBUAAAAAWyxPnGSJM6uoWvVK_X36KgIwzgLNqJT0&xsrfsig=AHgIfE__k_kVqV74Jj8ilS1tBtR0y3E2ZQ&flowName=GeneralOAuthFlow

@@ -4,7 +4,7 @@ module.exports = router
 
 router.use('/developers', require('./developers'))
 router.use('/users', require('./users'))
-router.use('/clients', require('./clients').router)
+router.use('/clients', require('./clients'))
 
 router.get('/test-qr', (req, res, next) => {
   const {io} = require('../../server/index')

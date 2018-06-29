@@ -20,10 +20,7 @@ redisClient.on('error', function(err) {
 
 // -------------------------------------------------------------
 
-module.exports = {
-  router,
-  redisClient
-}
+module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {

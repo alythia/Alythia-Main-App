@@ -7,7 +7,7 @@ socket.on('connect', () => {
 })
 
 socket.on('authorized', data => {
-  console.log('WE GOT SOME DATA: ', data)
+  console.log('WE GOT SOME DATA ON FRONT END: ', data)
 })
 
 export default socket
