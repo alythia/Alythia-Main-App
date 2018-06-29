@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const axios = require('axios')
-const {User, Client} = require('../db/models')
+const {User} = require('../db/models')
 const redisClient = require('./clients').redisClient
 
 module.exports = router
@@ -59,8 +59,8 @@ router.post('/verify/:transactionIdentifier', async (req, res, next) => {
             `http://172.16.23.189:8023/api/verify/${clientIdentifier}`,
             {email: userEmail}
           )
-          const loginIdentifier = data
-          // TODO: send this token with window.location info across socket
+          const {io} = require('../index')
+          io.emit('authorized', data)
           res.json(data)
         }
       }
