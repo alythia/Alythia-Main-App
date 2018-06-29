@@ -30,6 +30,9 @@ class QRCodeLanding extends Component {
       const loader = document.querySelector('.hidden')
       loader.classList.remove('hidden')
     })
+    // socket.on('authorized', data => {
+    //   console.log('WE GOT SOME DATA: ', data)
+    // })
     try {
       const result = await axios.post('/api/clients/verify', {token, client_id})
       if (result.status === 200) {
