@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const axios = require('axios')
-const {User, Client} = require('../db/models')
+const {User} = require('../db/models')
+const redisClient = require('./clients').redisClient
+
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -32,7 +34,6 @@ router.post('/verify/:transactionIdentifier', async (req, res, next) => {
     // Verify user
     const userEmail = req.body.email
     const userIdentifier = req.body.userIdentifier
-
     const user = await User.findOne({where: {email: userEmail}})
 
     if (!user) {
@@ -43,30 +44,28 @@ router.post('/verify/:transactionIdentifier', async (req, res, next) => {
       res.status(401).send('Access denied, incorrect user identifier.')
     }
 
-    // Verify client
+    // Verify client and post to Client backend
     const clientIdentifier = req.body.clientIdentifier
-    const transactionIdentifier = req.body.transactionIdentifier
+    const transactionIdentifier = req.params.transactionIdentifier
 
-    const client = await Client.findOne(clientIdentifier)
-    // TODO: We might have to look into Redis here to check that we get the right transaction UUID
-
-    // After user and client are verified, post to client user email
-    if (user && client) {
-      const {data} = await axios.post(
-        `/api/verify/${clientIdentifier}`,
-        userEmail
-      )
-      console.log(`POST req to CLIENT with user email: ${userEmail}`)
-      console.log(`POST res received from CLIENT: ${data}`)
-      res.json(data)
-    }
+//     await redisClient.get(transactionIdentifier, async function(err, reply) {
+//       if (err) {
+//         console.log('Redis error on GET: ', err)
+//       } else {
+//         console.log('Redis reply on GET: ', reply)
+//         if (user && clientIdentifier === reply) {
+//           // After user and client are verified, post to client user email
+//           const {data} = await axios.post(
+//             `http://172.16.23.189:8023/api/verify/${clientIdentifier}`,
+//             {email: userEmail}
+//           )
+//           const {io} = require('../index')
+//           io.emit('authorized', data)
+//           res.json(data)
+//         }
+//       }
+//     })
   } catch (error) {
     next(error)
   }
-})
-
-// Step #10 on flow chart: Client sends POST request with unique token indicating user has been authorized on their end
-router.post('/auth/confirm/:userClientToken', async (req, res, next) => {
-  const userToken = req.params.userClientToken
-  // TODO: send this token with window.location info across socket
 })

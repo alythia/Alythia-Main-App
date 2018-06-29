@@ -3,6 +3,7 @@ node_js:
   - node # uses most recent stable node version
 services:
   - postgresql # starts up postgres
+  - redis-server --port 6379
 addons:
   postgresql: '9.6' # highest available postgres version on Travis
 dist: trusty # uses trusty environment
