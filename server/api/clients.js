@@ -44,7 +44,7 @@ router.post('/verify', async (req, res, next) => {
   }
 })
 
-router.post('/:client_id', async (req, res, next) => {
+router.get('/:client_id', async (req, res, next) => {
   const {client_id} = req.params
   try {
     const client = await Client.findOne({
@@ -58,8 +58,15 @@ router.post('/:client_id', async (req, res, next) => {
       website
     }
     const token = jwt.sign(result, secret_key)
+    console.log(token, client_id)
     res.redirect(`/auth/identify?token=${token}&client_id=${client_id}`)
   } catch (error) {
     next(error)
   }
+})
+
+router.use((req, res, next) => {
+  const error = new Error('Not Found')
+  error.status = 404
+  next(error)
 })

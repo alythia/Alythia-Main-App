@@ -49,6 +49,7 @@ class QRCodeLanding extends Component {
   }
 
   render() {
+    console.log(this.state)
     // TODO: discuss how to give this a 10 minute shelf life
     const {token, message, pageLoaded, pageInfo} = this.state
     if (!pageLoaded) {
