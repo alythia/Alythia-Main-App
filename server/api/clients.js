@@ -15,21 +15,20 @@ const jwt = require('jsonwebtoken')
 //     'redis://h:p0adc8345fd36407381319fa474d9bb82a952ca7fbc237d770b321799c7fd6365@ec2-52-23-66-23.compute-1.amazonaws.com:35149'
 // })
 
-// Set to LocalHost
-const redisClient = redis.createClient({
-  host: 'localhost',
-  port: 6379
-})
+// const redisClient = redis.createClient({
+//   host: 'localhost',
+//   port: 6379
+// })
 
-redisClient.on('ready', function() {
-  console.log('Redis is ready')
-})
+// redisClient.on('ready', function() {
+//   console.log('Redis is ready')
+// })
 
-redisClient.on('error', function(err) {
-  console.log(
-    'error event - ' + redisClient.host + ':' + redisClient.port + ' - ' + err
-  )
-})
+// redisClient.on('error', function(err) {
+//   console.log(
+//     'error event - ' + redisClient.host + ':' + redisClient.port + ' - ' + err
+//   )
+// })
 
 // -------------------------------------------------------------
 
@@ -76,7 +75,7 @@ router.post('/verify', async (req, res, next) => {
   }
 })
 
-router.post('/:client_id', async (req, res, next) => {
+router.get('/:client_id', async (req, res, next) => {
   const {client_id} = req.params
   const UUID = uuidv4()
 
@@ -85,11 +84,11 @@ router.post('/:client_id', async (req, res, next) => {
       where: {client_id}
     })
 
-    await redisClient.set(UUID, client_id, function(err, reply) {
-      err
-        ? console.log('Redis error on SET: ', err)
-        : console.log('Redis SET: ', `${UUID}: ${client_id}`)
-    })
+//     await redisClient.set(UUID, client_id, function(err, reply) {
+//       err
+//         ? console.log('Redis error on SET: ', err)
+//         : console.log('Redis SET: ', `${UUID}: ${client_id}`)
+//     })
 
     const {secret_key, public_key, projectName, website} = client
     const result = {
@@ -97,8 +96,15 @@ router.post('/:client_id', async (req, res, next) => {
       transactionIdentifier: UUID
     }
     const token = jwt.sign(result, secret_key)
+    console.log(token, client_id)
     res.redirect(`/auth/identify?token=${token}&client_id=${client_id}`)
   } catch (error) {
     next(error)
   }
+})
+
+router.use((req, res, next) => {
+  const error = new Error('Not Found')
+  error.status = 404
+  next(error)
 })
