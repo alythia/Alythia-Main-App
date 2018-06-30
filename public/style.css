@@ -28,6 +28,14 @@ h5 {
   color: #a5c9eb;
 }
 
+.divider-dots {
+  color: #003559;
+  font-size: 4rem;
+  margin-top: -60px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 .description-text {
   font-family: 'Ubuntu', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
   font-size: 1.1rem;
@@ -42,7 +50,7 @@ h5 {
   color: #689cbe;
   font-style: italic;
   padding-left: 30px;
-  border-left: 3px solid #003559;
+  /* border-left: 3px solid #003559; */
 }
 
 .quote-container {
@@ -52,7 +60,7 @@ h5 {
 }
 
 .quote-name {
-  margin-top: -15px;
+  margin-top: -10px;
 }
 
 #nav ul li {
@@ -102,7 +110,7 @@ h5 {
 
 .btn_google {
   display: flex;
-  background-color: rgb(245, 245, 245);
+  background-color: rgb(228, 223, 223);
   width: 85%;
   height: 35px;
   flex-direction: row;
@@ -125,6 +133,7 @@ h5 {
   margin: auto 0;
   text-transform: uppercase;
   color: teal;
+  font-size: 0.97rem;
 }
 
 .form-container {
@@ -253,7 +262,7 @@ h5 {
 
 .projects-container {
   background-color: #e7ecef;
-  min-height: 400px;
+  min-height: 350px;
   margin-bottom: -20px;
 }
 
@@ -338,10 +347,20 @@ h5 {
   text-align: center;
 }
 
+.nav-alythia {
+  font-family: 'Ubuntu', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+  color: #fff;
+  font-size: 2rem;
+}
+
 .alythia-text {
   font-family: 'Ubuntu', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
   color: #003559;
   font-size: 2rem;
+}
+
+.blue-button {
+  background-color: #003559;
 }
 
 .alythia-small-text {
