@@ -84,11 +84,11 @@ router.get('/:client_id', async (req, res, next) => {
       where: {client_id}
     })
 
-//     await redisClient.set(UUID, client_id, function(err, reply) {
-//       err
-//         ? console.log('Redis error on SET: ', err)
-//         : console.log('Redis SET: ', `${UUID}: ${client_id}`)
-//     })
+    // await redisClient.set(UUID, client_id, function(err, reply) {
+    //   err
+    //     ? console.log('Redis error on SET: ', err)
+    //     : console.log('Redis SET: ', `${UUID}: ${client_id}`)
+    // })
 
     const {secret_key, public_key, projectName, website} = client
     const result = {

@@ -9,7 +9,6 @@ class ProjectDetails extends Component {
 
   render() {
     let {currentProject} = this.props
-    console.log('CURRENT PROJECT', currentProject)
     return (
       <form className="col m4 s6">
         <Input
