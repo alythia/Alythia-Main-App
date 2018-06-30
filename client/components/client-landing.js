@@ -115,6 +115,8 @@ class Landing extends Component {
           ) : (
             <div className="row col push-m2 m8">
               <br />
+              <br />
+              <br />
               <p className="description-text">
                 Alythia is an Open Authorization ("OAuth") protocol that allows
                 third-party websites to safely and securely autheticate users
@@ -123,6 +125,7 @@ class Landing extends Component {
                 delegated authorization.
               </p>
               <div className="quote-container">
+                <h5 className="divider-dots">. . .</h5>
                 <p className="quote-text">
                   "OAuth is similar to a car’s valet key, which can be used to
                   allow a valet to temporarily drive and park a car, but it
