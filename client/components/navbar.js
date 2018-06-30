@@ -12,11 +12,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         {isLoggedIn ? (
           <ul id="nav-mobile" className="right nav-text">
             <li>
-              <Link to="/" className="nav-text white-text">
-                Home
-              </Link>
-            </li>
-            <li>
               <a href="/" onClick={handleClick} className="nav-text white-text">
                 Logout
               </a>
