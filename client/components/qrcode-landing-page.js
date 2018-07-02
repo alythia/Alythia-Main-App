@@ -4,7 +4,6 @@ import React, {Component} from 'react'
 import UniqueQRCode from './qrcode-generator'
 import axios from 'axios'
 import queryString from 'query-string'
-// import generateUUID from '../uuid-generator'
 import io from 'socket.io-client'
 import Spinner from 'react-spinkit'
 

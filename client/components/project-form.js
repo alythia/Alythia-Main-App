@@ -20,9 +20,6 @@ export const ProjectForm = props => {
         defaultValue={props.newProj.website}
         onChange={handleChange}
       />
-      {/* <div className="row">
-        <span>I accept the Terms and Conditions for using this product.</span>
-      </div> */}
     </div>
   )
 }

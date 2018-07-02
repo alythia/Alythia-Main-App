@@ -75,6 +75,7 @@ router.post('/verify/:transactionIdentifier', async (req, res, next) => {
         }
       }
     })
+
   } catch (error) {
     next(error)
   }

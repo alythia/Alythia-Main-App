@@ -8,14 +8,11 @@ const Navbar = ({handleClick, isLoggedIn}) => (
   <div className="navbar-fixed ">
     <nav className="transparent z-depth-0" id="nav">
       <div className="nav-wrapper transparent nav-container">
-        <a href="/">Alythia</a>
+        <a href="/" className="nav-alythia">
+          Alythia.
+        </a>
         {isLoggedIn ? (
           <ul id="nav-mobile" className="right nav-text">
-            <li>
-              <Link to="/" className="nav-text white-text">
-                Home
-              </Link>
-            </li>
             <li>
               <a href="/" onClick={handleClick} className="nav-text white-text">
                 Logout
