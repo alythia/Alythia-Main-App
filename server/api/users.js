@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const axios = require('axios')
 const {User} = require('../db/models')
-const redisClient = require('../redis')
+const {redisClient} = require('../redis')
 
 module.exports = router
 
