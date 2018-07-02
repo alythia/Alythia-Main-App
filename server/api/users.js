@@ -29,8 +29,9 @@ router.post('/', async (req, res, next) => {
 })
 
 // Step #7-8 on flow chart: Alythia validates client + user information, if valid we send a POST to client backend with user email
-router.post('/verify/:transactionIdentifier', async (req, res, next) => {
+router.post('/verify/', async (req, res, next) => {
   try {
+    res.sendStatus(200)
     // Verify user
     const userEmail = req.body.email
     const userIdentifier = req.body.userIdentifier
