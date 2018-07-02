@@ -3,7 +3,7 @@ node_js:
   - node # uses most recent stable node version
 services:
   - postgresql # starts up postgres
-  - redis-server --port 6379
+  - redis-server
 env:
   - DB=postgresql
   - REDIS_URL='redis://localhost:6379'
