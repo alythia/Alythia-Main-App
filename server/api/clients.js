@@ -1,33 +1,8 @@
 const router = require('express').Router()
 const uuidv4 = require('uuid/v4')
-const redisClient = require('redis').createClient(process.env.REDIS_URL)
 const {Client} = require('../db/models')
 const jwt = require('jsonwebtoken')
-// const Redis = require('ioredis');
-// const redis = new Redis(process.env.REDIS_URL);
-
-// -------------------------------------------------------------
-
-// Set to Heroku
-// const redisClient = redis.createClient({
-//   host: 'ec2-52-23-66-23.compute-1.amazonaws.com',
-//   port: 35149,
-//   password: 'p0adc8345fd36407381319fa474d9bb82a952ca7fbc237d770b321799c7fd6365',
-//   url:
-//     'redis://h:p0adc8345fd36407381319fa474d9bb82a952ca7fbc237d770b321799c7fd6365@ec2-52-23-66-23.compute-1.amazonaws.com:35149'
-// })
-
-redisClient.on('ready', function() {
-  console.log('Redis is ready')
-})
-
-redisClient.on('error', function(err) {
-  console.log(
-    'error event - ' + redisClient.host + ':' + redisClient.port + ' - ' + err
-  )
-})
-
-// -------------------------------------------------------------
+const {redisClient} = require('../redis')
 
 module.exports = router
 
