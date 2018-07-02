@@ -64,7 +64,7 @@ router.post('/verify/', async (req, res, next) => {
         if (user && clientIdentifier === reply) {
           // After user and client are verified, post to client user email
           const {data} = await axios.post(
-            `http://172.16.23.189:8023/api/verify/${clientIdentifier}`,
+            `http://alythiamock.herokuapp.com/api/verify/${clientIdentifier}`,
             {email: userEmail}
           )
           const {io} = require('../index')
