@@ -3,6 +3,8 @@ const uuidv4 = require('uuid/v4')
 const redisClient = require('redis').createClient(process.env.REDIS_URL)
 const {Client} = require('../db/models')
 const jwt = require('jsonwebtoken')
+// const Redis = require('ioredis');
+// const redis = new Redis(process.env.REDIS_URL);
 
 // -------------------------------------------------------------
 
@@ -15,20 +17,9 @@ const jwt = require('jsonwebtoken')
 //     'redis://h:p0adc8345fd36407381319fa474d9bb82a952ca7fbc237d770b321799c7fd6365@ec2-52-23-66-23.compute-1.amazonaws.com:35149'
 // })
 
-<<<<<<< HEAD
 redisClient.on('ready', function() {
   console.log('Redis is ready')
 })
-=======
-// const redisClient = redis.createClient({
-//   host: 'localhost',
-//   port: 6379
-// })
-
-// redisClient.on('ready', function() {
-//   console.log('Redis is ready')
-// })
->>>>>>> aae8cffb8a660c12df11ab10cc32a87fdba7329a
 
 redisClient.on('error', function(err) {
   console.log(
@@ -48,7 +39,7 @@ router.get('/', async (req, res, next) => {
     next(error)
   }
 })
-
+// post ('/')
 router.post('/new-project', async (req, res, next) => {
   try {
     const result = await Client.create(req.body)
@@ -57,7 +48,8 @@ router.post('/new-project', async (req, res, next) => {
     next(err)
   }
 })
-
+// POST /api/clients/4/verify?token=65765574576
+// post('/:id/verify') --restful
 router.post('/verify', async (req, res, next) => {
   const {client_id, token} = req.body
 
@@ -108,6 +100,7 @@ router.get('/:client_id', async (req, res, next) => {
     next(error)
   }
 })
+// express middleware instead of redirect, function isn't triggered until client makes check if stuff given back is valid
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')

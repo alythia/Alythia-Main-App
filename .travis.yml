@@ -4,6 +4,9 @@ node_js:
 services:
   - postgresql # starts up postgres
   - redis-server --port 6379
+env:
+  - DB=postgresql
+  - DB=r
 addons:
   postgresql: '9.6' # highest available postgres version on Travis
 dist: trusty # uses trusty environment
@@ -15,7 +18,7 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "alythia-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "alythia-test";' -U postgres && redis-server # remember to change this name if you change it elsewhere (e.g. package.json)
 
 before_deploy:
   - npm run build-client # make the bundle

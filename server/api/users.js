@@ -2,11 +2,12 @@ const router = require('express').Router()
 const axios = require('axios')
 const {User} = require('../db/models')
 const redis = require('redis')
+// const redisClient = require('redis').createClient(process.env.REDIS_URL)
 
-// const redisClient = redis.createClient({
-//   host: 'localhost',
-//   port: 6379
-// })
+const redisClient = redis.createClient({
+  host: 'localhost',
+  port: 6379
+})
 
 module.exports = router
 
@@ -57,24 +58,23 @@ router.post('/verify/:transactionIdentifier', async (req, res, next) => {
     console.log('TRANSACTION ID: ', transactionIdentifier)
     console.log('CLIENT ID: ', clientIdentifier)
 
-
-//     await redisClient.get(transactionIdentifier, async function(err, reply) {
-//       if (err) {
-//         console.log('Redis error on GET: ', err)
-//       } else {
-//         console.log('Redis reply on GET: ', reply)
-//         if (user && clientIdentifier === reply) {
-//           // After user and client are verified, post to client user email
-//           const {data} = await axios.post(
-//             `http://172.16.23.189:8023/api/verify/${clientIdentifier}`,
-//             {email: userEmail}
-//           )
-//           const {io} = require('../index')
-//           io.emit('authorized', data)
-//           res.json(data)
-//         }
-//       }
-//     })
+    await redisClient.get(transactionIdentifier, async function(err, reply) {
+      if (err) {
+        console.log('Redis error on GET: ', err)
+      } else {
+        console.log('Redis reply on GET: ', reply)
+        if (user && clientIdentifier === reply) {
+          // After user and client are verified, post to client user email
+          const {data} = await axios.post(
+            `http://172.16.23.189:8023/api/verify/${clientIdentifier}`,
+            {email: userEmail}
+          )
+          const {io} = require('../index')
+          io.emit('authorized', data)
+          res.json(data)
+        }
+      }
+    })
   } catch (error) {
     next(error)
   }
