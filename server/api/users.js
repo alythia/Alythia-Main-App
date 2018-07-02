@@ -58,6 +58,9 @@ router.post('/verify/', async (req, res, next) => {
         console.log('Redis error on GET: ', err)
       } else {
         console.log('Redis reply on GET: ', reply)
+        console.log('HERES MY USER: ', user)
+        console.log('CLIENT ID LOOK UP SUCCESS?: ', clientIdentifier === reply)
+
         if (user && clientIdentifier === reply) {
           // After user and client are verified, post to client user email
           const {data} = await axios.post(
