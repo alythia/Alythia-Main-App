@@ -6,7 +6,7 @@ services:
   - redis-server --port 6379
 env:
   - DB=postgresql
-  - DB=redis
+  - REDIS_URL='redis://localhost:6379'
 addons:
   postgresql: '9.6' # highest available postgres version on Travis
 dist: trusty # uses trusty environment
@@ -19,10 +19,10 @@ install:
   - npm ci # faster, goes only from package-lock
 before_script:
   - psql -c 'create database "alythia-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
-  - redis-server
+  # - redis-server
+  # - redis-cli shutdown
 before_deploy:
   - npm run build-client # make the bundle
-  - redis-cli shutdown
   - rm -rf node_modules # omit from the tarball, since we skip cleanup
 deploy:
   skip_cleanup: true # prevents travis from deleting the build

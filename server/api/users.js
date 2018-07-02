@@ -1,13 +1,13 @@
 const router = require('express').Router()
 const axios = require('axios')
 const {User} = require('../db/models')
-const redis = require('redis')
-// const redisClient = require('redis').createClient(process.env.REDIS_URL)
+// const redis = require('redis')
+const redisClient = require('redis').createClient(process.env.REDIS_URL)
 
-const redisClient = redis.createClient({
-  host: 'localhost',
-  port: 6379
-})
+// const redisClient = redis.createClient({
+//   host: 'localhost',
+//   port: 6379
+// })
 
 module.exports = router
 
