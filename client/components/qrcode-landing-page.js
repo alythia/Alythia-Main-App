@@ -22,6 +22,7 @@ class QRCodeLanding extends Component {
     socket.on('authorized', data => {
       const clientUrl = this.state.pageInfo.website
       const loginIdentifier = data.loginIdentifier
+      console.log('CLIENT URL FOR ROUTE:', clientUrl)
       window.location.href = `${clientUrl}/api/logged-in/${loginIdentifier}`
     })
 
