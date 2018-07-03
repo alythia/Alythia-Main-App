@@ -17,6 +17,8 @@ router.post('/', async (req, res, next) => {
 // Step #7-8 on flow chart: Alythia validates client + user information, if valid we send a POST to client backend with user email
 router.post('/verify/', async (req, res, next) => {
   try {
+    const {io} = require('../index')
+    io.emit('Hello')
     // Verify user
     const userEmail = req.body.email
     const userIdentifier = req.body.userIdentifier
@@ -39,20 +41,14 @@ router.post('/verify/', async (req, res, next) => {
       } else {
         console.log('Redis reply on GET: ', reply)
 
-        console.log('DB SENT BACK THIS USER: ', user)
-        console.log('REDIS CHECK CORRECT?: ', clientIdentifier === reply)
-
         if (user && clientIdentifier === reply) {
           // After user and client are verified, post to client user email
-          console.log('CHECKS FINE, WERE IN IF STATEMENT')
-          console.log('client Indentifier --> ', clientIdentifier, userEmail)
           const {data} = await axios.post(
             `http://alythiamock.herokuapp.com/api/verify/${clientIdentifier}`,
             {email: userEmail}
           )
           console.log('res from client --> ', data)
 
-          const {io} = require('../index')
           io.emit('authorized', data)
           console.log('socket just emitted --| ')
           res.json(data)
