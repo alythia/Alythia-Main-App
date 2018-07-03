@@ -18,17 +18,7 @@ class QRCodeLanding extends Component {
       message: '',
       pageInfo: {}
     }
-  }
 
-  async componentDidMount() {
-    const query = queryString.parse(this.props.location.search)
-    const {client_id, token} = query
-    socket.on('Hello', () => {
-      const qr = document.getElementById('qr')
-      qr.classList.add('hidden')
-      const loader = document.querySelector('.hidden')
-      loader.classList.remove('hidden')
-    })
     socket.on('authorized', async data => {
       const loginIdentifier = data.loginIdentifier
       // TODO: Make the below IP address dynamic by looking up client routes URL
@@ -36,6 +26,19 @@ class QRCodeLanding extends Component {
         `http://alythiamock.herokuapp.com/api/logged-in/${loginIdentifier}`
       )
     })
+
+    socket.on('Hello', () => {
+      const qr = document.getElementById('qr')
+      qr.classList.add('hidden')
+      const loader = document.querySelector('.hidden')
+      loader.classList.remove('hidden')
+    })
+  }
+
+  async componentDidMount() {
+    const query = queryString.parse(this.props.location.search)
+    const {client_id, token} = query
+
     try {
       const result = await axios.post('/api/clients/verify', {token, client_id})
       if (result.status === 200) {
