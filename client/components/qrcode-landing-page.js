@@ -34,7 +34,7 @@ class QRCodeLanding extends Component {
       console.log('LOGIN IDENTIFIER: ', loginIdentifier)
       // TODO: Make the below IP address dynamic by looking up client routes URL
       await axios.get(
-        `http://172.16.23.189:8023/api/logged-in/${loginIdentifier}`
+        `http://alythiamock.herokuapp.com/api/logged-in/${loginIdentifier}`
       )
     })
     try {
