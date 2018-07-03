@@ -15,14 +15,15 @@ export const ProjectForm = props => {
       />
       <Input
         s={6}
-        label="Authorized Domain"
+        label="Authorize Origin Domain"
         name="website"
         defaultValue={props.newProj.website}
         onChange={handleChange}
       />
-      {/* <div className="row">
-        <span>I accept the Terms and Conditions for using this product.</span>
-      </div> */}
+      <span className="helper-text">
+        For use with requests from a browser. This is the origin URI of the
+        client application. It can't contain a wildcard (https://*.example.com).
+      </span>
     </div>
   )
 }

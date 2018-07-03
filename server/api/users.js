@@ -1,23 +1,9 @@
 const router = require('express').Router()
 const axios = require('axios')
 const {User} = require('../db/models')
-const redisClient = require('./clients').redisClient
+const {redisClient} = require('../redis')
 
 module.exports = router
-
-router.get('/', async (req, res, next) => {
-  try {
-    const users = await User.findAll({
-      // explicitly select only the id and email fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
-      attributes: ['UUID', 'email']
-    })
-    res.json(users)
-  } catch (err) {
-    next(err)
-  }
-})
 
 router.post('/', async (req, res, next) => {
   try {
@@ -29,13 +15,17 @@ router.post('/', async (req, res, next) => {
 })
 
 // Step #7-8 on flow chart: Alythia validates client + user information, if valid we send a POST to client backend with user email
-router.post('/verify/:transactionIdentifier', async (req, res, next) => {
+router.post('/verify/', async (req, res, next) => {
   try {
+    res.sendStatus(200)
+
     // Verify user
     const userEmail = req.body.email
     const userIdentifier = req.body.userIdentifier
-    const user = await User.findOne({where: {email: userEmail}})
+    const clientIdentifier = req.body.clientIdentifier
+    const transactionIdentifier = req.body.transactionIdentifier
 
+    const user = await User.findOne({where: {email: userEmail}})
     if (!user) {
       console.log('User not found:', userEmail)
       res.status(401).send(`Access denied, user does not exist: ${userEmail}`)
@@ -45,26 +35,29 @@ router.post('/verify/:transactionIdentifier', async (req, res, next) => {
     }
 
     // Verify client and post to Client backend
-    const clientIdentifier = req.body.clientIdentifier
-    const transactionIdentifier = req.params.transactionIdentifier
+    await redisClient.get(transactionIdentifier, async function(err, reply) {
+      if (err) {
+        console.log('Redis error on GET: ', err)
+      } else {
+        console.log('Redis reply on GET: ', reply)
 
-//     await redisClient.get(transactionIdentifier, async function(err, reply) {
-//       if (err) {
-//         console.log('Redis error on GET: ', err)
-//       } else {
-//         console.log('Redis reply on GET: ', reply)
-//         if (user && clientIdentifier === reply) {
-//           // After user and client are verified, post to client user email
-//           const {data} = await axios.post(
-//             `http://172.16.23.189:8023/api/verify/${clientIdentifier}`,
-//             {email: userEmail}
-//           )
-//           const {io} = require('../index')
-//           io.emit('authorized', data)
-//           res.json(data)
-//         }
-//       }
-//     })
+        console.log('DB SENT BACK THIS USER: ', user)
+        console.log('REDIS CHECK CORRECT?: ', clientIdentifier === reply)
+
+        if (user && clientIdentifier === reply) {
+          // After user and client are verified, post to client user email
+          console.log('CHECKS FINE, WERE IN IF STATEMENT')
+          const {data} = await axios.post(
+            `http://alythiamock.herokuapp.com/api/verify/${clientIdentifier}`,
+            {email: userEmail}
+          )
+          const {io} = require('../index')
+          io.emit('authorized', data)
+          console.log('CLIENT RESPONSE WITH ONE-TIME TOKEN: ', data)
+          res.json(data)
+        }
+      }
+    })
   } catch (error) {
     next(error)
   }

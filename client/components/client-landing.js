@@ -79,7 +79,8 @@ class Landing extends Component {
                     Alythia.
                   </h1>
                   <h5 className="header col push-m2 m8">
-                    A password-free authentication provider
+                    A password-free authentication provider.{'  '}
+                    <span className="alythia-text"> {'  '}Simply scan.</span>
                   </h5>
                 </div>
               </div>
@@ -88,28 +89,53 @@ class Landing extends Component {
           </div>
         </section>
         <section className="row projects-container">
-          <div className="row col push-m2 m8 project-boxes">
-            <Project
-              newProject="New Project"
-              handleChange={this.handleChange}
-              handleSubmit={this.handleSubmit}
-              newProj={this.state.newProj}
-            />
-            {this.props.userProjects ? (
-              this.props.userProjects.map(project => {
-                return (
-                  <Project
-                    userInfo={project}
-                    key={project.id}
-                    projectId={project.id}
-                    handleProjectClick={this.handleProjectClick}
-                  />
-                )
-              })
-            ) : (
-              <div />
-            )}
-          </div>
+          {this.props.isLoggedIn ? (
+            <div className="row col push-m2 m8 project-boxes">
+              <Project
+                newProject="New Project"
+                handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+                newProj={this.state.newProj}
+              />
+              {this.props.userProjects ? (
+                this.props.userProjects.map(project => {
+                  return (
+                    <Project
+                      userInfo={project}
+                      key={project.id}
+                      projectId={project.id}
+                      handleProjectClick={this.handleProjectClick}
+                    />
+                  )
+                })
+              ) : (
+                <div />
+              )}
+            </div>
+          ) : (
+            <div className="row col push-m2 m8">
+              <br />
+              <p className="description-text">
+                Alythia is an Open Authorization ("OAuth") protocol that allows
+                third-party websites to safely and securely autheticate users
+                without requiring sesitive user data (e.g. site-specific user
+                passwords). We provide secure, third-party, user-agent,
+                delegated authorization.
+              </p>
+              <div className="quote-container">
+                <h5 className="divider-dots">. . .</h5>
+                <p className="quote-text">
+                  "OAuth is similar to a car’s valet key, which can be used to
+                  allow a valet to temporarily drive and park a car, but it
+                  doesn’t allow the holder full, unlimited access like a regular
+                  key"
+                </p>
+                <p className="alythia-small-text right-align quote-name">
+                  - Eran Hammer-Lahav, "Explaining OAuth"
+                </p>
+              </div>
+            </div>
+          )}
         </section>
         <Modal
           header="Project Credentials"
@@ -121,14 +147,14 @@ class Landing extends Component {
                 waves="light"
                 className="button-margin"
               >
-                New API Token
+                New Public Key
               </Button>
               <Button
                 onClick={this.generateNewSecret}
                 waves="light"
                 className="button-margin"
               >
-                New Client Secret
+                New Secret Key
               </Button>
             </div>
           }
@@ -146,7 +172,8 @@ class Landing extends Component {
 const mapState = state => ({
   userProjects: state.client.userProjects,
   developerId: state.developer.id,
-  project: state.client.currentProject
+  project: state.client.currentProject,
+  isLoggedIn: !!state.developer.id
 })
 
 const mapDispatch = dispatch => ({

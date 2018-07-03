@@ -6,12 +6,12 @@ import {auth} from '../store'
 
 class AuthForm extends Component {
   constructor() {
-    super();
+    super()
   }
 
-  componentDidMount(){
-    const navbar = document.querySelector('.navbar-fixed');
-    navbar.classList.add('dark-navbar');
+  componentDidMount() {
+    const navbar = document.querySelector('.navbar-fixed')
+    navbar.classList.add('dark-navbar')
   }
 
   render() {
@@ -20,7 +20,7 @@ class AuthForm extends Component {
       <div className="container row white z-depth-2 form-container">
         <form onSubmit={handleSubmit} name={name}>
           <center className="row">
-            <h4 className="teal-text">{displayName}</h4>
+            <h4 className="alythia-text">{displayName}</h4>
             <div className="col s12">
               <Input
                 type="email"
@@ -41,7 +41,7 @@ class AuthForm extends Component {
             </div>
           </center>
           <center>
-            <Button id="login" type="submit">
+            <Button id="login" type="submit" className="blue-button">
               <Icon left>email</Icon>
               {displayName} with Email
             </Button>

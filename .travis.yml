@@ -3,7 +3,10 @@ node_js:
   - node # uses most recent stable node version
 services:
   - postgresql # starts up postgres
-  - redis-server --port 6379
+  - redis-server
+env:
+  - DB=postgresql
+  - REDIS_URL='redis://localhost:6379'
 addons:
   postgresql: '9.6' # highest available postgres version on Travis
 dist: trusty # uses trusty environment
@@ -16,7 +19,8 @@ install:
   - npm ci # faster, goes only from package-lock
 before_script:
   - psql -c 'create database "alythia-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
-
+  # - redis-server
+  # - redis-cli shutdown
 before_deploy:
   - npm run build-client # make the bundle
   - rm -rf node_modules # omit from the tarball, since we skip cleanup

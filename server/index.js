@@ -1,5 +1,6 @@
 const path = require('path')
 const express = require('express')
+const helmet = require('helmet')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const compression = require('compression')
@@ -65,6 +66,9 @@ const createApp = () => {
   app.use(passport.initialize())
   app.use(passport.session())
 
+  // Helmet middleware for Express route security
+  app.use(helmet())
+
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
@@ -75,6 +79,7 @@ const createApp = () => {
   // any remaining requests with an extension (.js, .css, etc.) send 404
   app.use((req, res, next) => {
     if (path.extname(req.path).length) {
+      console.log(req.body)
       const err = new Error('Not found')
       err.status = 404
       next(err)
