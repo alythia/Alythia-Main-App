@@ -4,8 +4,8 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
-  <div className="navbar-fixed ">
+const Navbar = ({handleClick, isLoggedIn, darken}) => (
+  <div className={darken ? "navbar-fixed dark-navbar" : "navbar-fixed"}>
     <nav className="transparent z-depth-0" id="nav">
       <div className="nav-wrapper transparent nav-container">
         <a href="/" className="nav-alythia">
@@ -14,6 +14,11 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         {isLoggedIn ? (
           <ul id="nav-mobile" className="right nav-text">
             <li>
+              <Link to="/documentation" className="nav-text white-text">
+                Documentation
+              </Link>
+            </li>
+            <li>
               <a href="/" onClick={handleClick} className="nav-text white-text">
                 Logout
               </a>
@@ -21,6 +26,11 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           </ul>
         ) : (
           <ul id="nav-mobile" className="right">
+            <li>
+              <Link to="/documentation" className="nav-text white-text">
+                Documentation
+              </Link>
+            </li>
             <li>
               <Link to="/login" className="nav-text white-text">
                 Login
@@ -43,7 +53,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.developer.id
+    isLoggedIn: !!state.developer.id,
+    darken: state.client.darkenNavbar
   }
 }
 

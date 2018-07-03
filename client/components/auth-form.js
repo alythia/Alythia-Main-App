@@ -2,16 +2,15 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {Input, Button, Icon} from 'react-materialize'
-import {auth} from '../store'
+import {auth, changeBackgroudColor} from '../store'
 
 class AuthForm extends Component {
   constructor() {
     super()
   }
-
+  
   componentDidMount() {
-    const navbar = document.querySelector('.navbar-fixed')
-    navbar.classList.add('dark-navbar')
+    this.props.changeBackgroudColor(true);
   }
 
   render() {
@@ -89,7 +88,8 @@ const mapDispatch = dispatch => {
       const email = evt.target.email.value
       const password = evt.target.password.value
       dispatch(auth(email, password, formName))
-    }
+    },
+    changeBackgroudColor: bool => dispatch(changeBackgroudColor(bool))
   }
 }
 
