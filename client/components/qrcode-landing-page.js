@@ -20,12 +20,10 @@ class QRCodeLanding extends Component {
       authenticating: false
     }
 
-    socket.on('authorized', async data => {
+    socket.on('authorized', data => {
       const loginIdentifier = data.loginIdentifier
       // TODO: Make the below IP address dynamic by looking up client routes URL
-      await axios.get(
-        `http://alythiamock.herokuapp.com/api/logged-in/${loginIdentifier}`
-      )
+      window.location.href = `http://alythiamock.herokuapp.com/api/logged-in/${loginIdentifier}`
     })
 
     socket.on('Hello', () => {
