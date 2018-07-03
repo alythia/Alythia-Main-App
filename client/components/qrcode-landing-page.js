@@ -77,8 +77,8 @@ class QRCodeLanding extends Component {
                 <img src="/Logo-dark.png" className="logo-qr-page" />
                 <div className="large-spacer" />
                 <div id="QRcontainer">
-                  <div className="spinner-holder hidden">
-                    <Spinner className="qrLoader" name="cube-grid" />
+                  <div className="spinner-holder">
+                    <Spinner className="qrLoader hidden" name="cube-grid" />
                   </div>
                   <div id="qr" className="">
                     <UniqueQRCode
