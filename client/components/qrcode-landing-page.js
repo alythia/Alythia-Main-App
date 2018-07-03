@@ -20,20 +20,6 @@ class QRCodeLanding extends Component {
       authenticating: false
     }
 
-<<<<<<< HEAD
-=======
-  async componentDidMount() {
-    const query = queryString.parse(this.props.location.search)
-    const {client_id, token} = query
-
-    socket.on('Hello', () => {
-      const qr = document.getElementById('qr')
-      qr.classList.add('hidden')
-      const loader = document.querySelector('.hidden')
-      loader.classList.remove('hidden')
-    })
-
->>>>>>> 2276902753bc16d48442f9d7e839b5df94736a27
     socket.on('authorized', async data => {
       const loginIdentifier = data.loginIdentifier
       // TODO: Make the below IP address dynamic by looking up client routes URL
@@ -42,7 +28,6 @@ class QRCodeLanding extends Component {
       )
     })
 
-<<<<<<< HEAD
     socket.on('Hello', () => {
       const qr = document.getElementById('qr')
       qr.classList.add('hidden')
@@ -55,8 +40,6 @@ class QRCodeLanding extends Component {
     const query = queryString.parse(this.props.location.search)
     const {client_id, token} = query
 
-=======
->>>>>>> 2276902753bc16d48442f9d7e839b5df94736a27
     try {
       const result = await axios.post('/api/clients/verify', {token, client_id})
       if (result.status === 200) {
