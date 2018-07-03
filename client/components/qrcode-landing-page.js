@@ -16,9 +16,24 @@ class QRCodeLanding extends Component {
       pageLoaded: false,
       token: '',
       message: '',
-      pageInfo: {}
+      pageInfo: {},
+      authenticating: false
     }
 
+<<<<<<< HEAD
+=======
+  async componentDidMount() {
+    const query = queryString.parse(this.props.location.search)
+    const {client_id, token} = query
+
+    socket.on('Hello', () => {
+      const qr = document.getElementById('qr')
+      qr.classList.add('hidden')
+      const loader = document.querySelector('.hidden')
+      loader.classList.remove('hidden')
+    })
+
+>>>>>>> 2276902753bc16d48442f9d7e839b5df94736a27
     socket.on('authorized', async data => {
       const loginIdentifier = data.loginIdentifier
       // TODO: Make the below IP address dynamic by looking up client routes URL
@@ -27,6 +42,7 @@ class QRCodeLanding extends Component {
       )
     })
 
+<<<<<<< HEAD
     socket.on('Hello', () => {
       const qr = document.getElementById('qr')
       qr.classList.add('hidden')
@@ -39,6 +55,8 @@ class QRCodeLanding extends Component {
     const query = queryString.parse(this.props.location.search)
     const {client_id, token} = query
 
+=======
+>>>>>>> 2276902753bc16d48442f9d7e839b5df94736a27
     try {
       const result = await axios.post('/api/clients/verify', {token, client_id})
       if (result.status === 200) {
@@ -70,6 +88,10 @@ class QRCodeLanding extends Component {
         </div>
       )
     } else if (pageLoaded && token.length > 0) {
+      let authenticating = this.state.authenticating
+      let spinnerDisplay = authenticating ? '' : 'hidden'
+      let qrDisplay = authenticating ? 'hidden' : ''
+
       return (
         <div className="row container center animated zoomIn">
           <div className="col s12 m12">
@@ -78,17 +100,18 @@ class QRCodeLanding extends Component {
                 <img src="/Logo-dark.png" className="logo-qr-page" />
                 <div className="large-spacer" />
                 <div id="QRcontainer">
-                  <div className="hidden">
-                    <Spinner className="qrLoader" name="cube-grid" />
+                  <div className="spinner-holder">
+                    <Spinner
+                      className={`qrLoader ${spinnerDisplay}`}
+                      name="cube-grid"
+                    />
                   </div>
-                  {
-                    <div id="qr">
-                      <UniqueQRCode
-                        id="QRCodeRender"
-                        apiToken={JSON.stringify(pageInfo)}
-                      />
-                    </div>
-                  }
+                  <div id="qr" className={qrDisplay}>
+                    <UniqueQRCode
+                      id="QRCodeRender"
+                      apiToken={JSON.stringify(pageInfo)}
+                    />
+                  </div>
                 </div>
                 <p className="confirm-text">
                   Scan with your{' '}
