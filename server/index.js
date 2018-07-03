@@ -12,6 +12,7 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
+const cors = require('cors')
 
 module.exports = app
 
@@ -65,6 +66,9 @@ const createApp = () => {
   )
   app.use(passport.initialize())
   app.use(passport.session())
+
+  // CORS
+  app.use(cors())
 
   // Helmet middleware for Express route security
   app.use(helmet())
