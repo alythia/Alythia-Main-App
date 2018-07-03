@@ -90,20 +90,21 @@ h5 {
   position: relative;
 }
 
-/* #QRcontainer > div {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-} */
-
 .hidden {
   display: none;
 }
 
 .qrLoader {
-  height: 100px !important;
-  width: 100px !important;
+  height: 200px !important;
+  width: 200px !important;
+  color: #003559 !important;
+  background-color: #003559 !important;
+}
+
+.spinner-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Login and Signin Forms */
