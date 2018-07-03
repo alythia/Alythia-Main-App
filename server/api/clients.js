@@ -6,15 +6,6 @@ const {redisClient} = require('../redis')
 
 module.exports = router
 
-router.get('/', async (req, res, next) => {
-  try {
-    const clients = await Client.findAll()
-    res.json(clients)
-  } catch (error) {
-    next(error)
-  }
-})
-// post ('/')
 router.post('/new-project', async (req, res, next) => {
   try {
     const result = await Client.create(req.body)
@@ -23,6 +14,7 @@ router.post('/new-project', async (req, res, next) => {
     next(err)
   }
 })
+
 // POST /api/clients/4/verify?token=65765574576
 // post('/:id/verify') --restful
 router.post('/verify', async (req, res, next) => {
@@ -65,6 +57,8 @@ router.get('/:client_id', async (req, res, next) => {
 
     const {secret_key, public_key, projectName, website} = client
     const result = {
+      projectName,
+      website,
       clientIdentifier: client_id,
       transactionIdentifier: UUID
     }
