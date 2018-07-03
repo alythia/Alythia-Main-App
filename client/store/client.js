@@ -53,7 +53,7 @@ export default function(state = initialState, action) {
       }
     }
     case SET_CURRENT_PROJECT: {
-      return{
+      return {
         ...state,
         currentProject: action.currentProject
       }

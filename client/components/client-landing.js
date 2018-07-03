@@ -147,14 +147,14 @@ class Landing extends Component {
                 waves="light"
                 className="button-margin"
               >
-                New API Token
+                New Public Key
               </Button>
               <Button
                 onClick={this.generateNewSecret}
                 waves="light"
                 className="button-margin"
               >
-                New Client Secret
+                New Secret Key
               </Button>
             </div>
           }
