@@ -16,14 +16,13 @@ class QRCodeLanding extends Component {
       pageLoaded: false,
       token: '',
       message: '',
-      pageInfo: {},
-      authenticating: false
+      pageInfo: {}
     }
 
     socket.on('authorized', data => {
+      const clientUrl = this.state.pageInfo.website
       const loginIdentifier = data.loginIdentifier
-      // TODO: Make the below IP address dynamic by looking up client routes URL
-      window.location.href = `http://alythiamock.herokuapp.com/api/logged-in/${loginIdentifier}`
+      window.location.href = `${clientUrl}/api/logged-in/${loginIdentifier}`
     })
 
     socket.on('Hello', () => {
