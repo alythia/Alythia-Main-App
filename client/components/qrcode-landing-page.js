@@ -69,10 +69,6 @@ class QRCodeLanding extends Component {
         </div>
       )
     } else if (pageLoaded && token.length > 0) {
-      let authenticating = this.state.authenticating
-      let spinnerDisplay = authenticating ? '' : 'hidden'
-      let qrDisplay = authenticating ? 'hidden' : ''
-
       return (
         <div className="row container center animated zoomIn">
           <div className="col s12 m12">
@@ -81,13 +77,10 @@ class QRCodeLanding extends Component {
                 <img src="/Logo-dark.png" className="logo-qr-page" />
                 <div className="large-spacer" />
                 <div id="QRcontainer">
-                  <div className="spinner-holder">
-                    <Spinner
-                      className={`qrLoader ${spinnerDisplay}`}
-                      name="cube-grid"
-                    />
+                  <div className="spinner-holder hidden">
+                    <Spinner className="qrLoader" name="cube-grid" />
                   </div>
-                  <div id="qr" className={qrDisplay}>
+                  <div id="qr" className="">
                     <UniqueQRCode
                       id="QRCodeRender"
                       apiToken={JSON.stringify(pageInfo)}
