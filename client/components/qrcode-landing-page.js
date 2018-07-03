@@ -31,7 +31,6 @@ class QRCodeLanding extends Component {
     })
     socket.on('authorized', async data => {
       const loginIdentifier = data.loginIdentifier
-      console.log('LOGIN IDENTIFIER: ', loginIdentifier)
       // TODO: Make the below IP address dynamic by looking up client routes URL
       await axios.get(
         `http://alythiamock.herokuapp.com/api/logged-in/${loginIdentifier}`
@@ -73,7 +72,7 @@ class QRCodeLanding extends Component {
           <div className="col s12 m12">
             <div className="card-panel qr-container-main">
               <div className="side-right">
-                <img src="/logo-dark.png" className="logo-qr-page" />
+                <img src="/Logo-dark.png" className="logo-qr-page" />
                 <div className="large-spacer" />
                 <div id="QRcontainer">
                   <div className="hidden">

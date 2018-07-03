@@ -40,14 +40,21 @@ router.post('/verify/', async (req, res, next) => {
         console.log('Redis error on GET: ', err)
       } else {
         console.log('Redis reply on GET: ', reply)
+
+        console.log('DB SENT BACK THIS USER: ', user)
+        console.log('REDIS CHECK CORRECT?: ', clientIdentifier === reply)
+
         if (user && clientIdentifier === reply) {
           // After user and client are verified, post to client user email
+          console.log('CHECKS FINE, WERE IN IF STATEMENT')
+          console.log("client Indentifier --> ",clientIdentifier, userEmail)
           const {data} = await axios.post(
             `http://alythiamock.herokuapp.com/api/verify/${clientIdentifier}`,
             {email: userEmail}
           )
           const {io} = require('../index')
           io.emit('authorized', data)
+          console.log('CLIENT RESPONSE WITH ONE-TIME TOKEN: ', data)
           res.json(data)
         }
       }

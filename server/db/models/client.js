@@ -12,14 +12,17 @@ const Client = db.define('client', {
   website: {
     type: Sequelize.STRING,
     allowNull: false,
+    validate: {
+      isUrl: true
+    }
   },
-  client_id:{
+  client_id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV1
   },
   secret_key: {
     type: Sequelize.STRING,
-    unique: true,
+    unique: true
   },
   public_key: {
     type: Sequelize.STRING,
