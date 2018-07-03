@@ -45,6 +45,7 @@ router.post('/verify/', async (req, res, next) => {
         if (user && clientIdentifier === reply) {
           // After user and client are verified, post to client user email
           console.log('CHECKS FINE, WERE IN IF STATEMENT')
+          console.log("client Indentifier --> ",clientIdentifier, userEmail)
           const {data} = await axios.post(
             `http://alythiamock.herokuapp.com/api/verify/${clientIdentifier}`,
             {email: userEmail}
