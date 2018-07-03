@@ -4,7 +4,8 @@ import {Modal, Button} from 'react-materialize'
 import {
   addNewProject,
   fetchUserProjects,
-  addedCurrentProject
+  addedCurrentProject,
+  changeBackgroudColor
 } from '../store/client'
 import Project from './project-card'
 import {me} from '../store'
@@ -24,13 +25,11 @@ class Landing extends Component {
 
   componentDidMount = async () => {
     await this.props.loadInitialData()
+    this.props.changeBackgroudColor(false);
     if (this.props.developerId) {
       await this.props.fetchUserProjects(this.props.developerId)
       this.setState({newProj: {developerId: this.props.developerId}})
     }
-
-    const navbar = document.querySelector('.navbar-fixed')
-    navbar.classList.remove('dark-navbar')
   }
 
   handleChange = event => {
@@ -173,13 +172,15 @@ const mapState = state => ({
   userProjects: state.client.userProjects,
   developerId: state.developer.id,
   project: state.client.currentProject,
-  isLoggedIn: !!state.developer.id
+  isLoggedIn: !!state.developer.id,
+  darkenNavbar: state.client.darkenNavbar
 })
 
 const mapDispatch = dispatch => ({
   loadInitialData: () => dispatch(me()),
   addNewProject: project => dispatch(addNewProject(project)),
   fetchUserProjects: developerId => dispatch(fetchUserProjects(developerId)),
+  changeBackgroudColor: bool => dispatch(changeBackgroudColor(bool)),
   addedCurrentProject: currentProject =>
     dispatch(addedCurrentProject(currentProject))
 })
