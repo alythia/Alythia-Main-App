@@ -32,7 +32,7 @@ router.post('/verify', async (req, res, next) => {
             res.status(401).send()
           }
         })
-      }, 2000)
+      }, 1000)
     } else res.status(401).send('Invalid token')
   } catch (error) {
     console.log('/client/verify', error.message)
