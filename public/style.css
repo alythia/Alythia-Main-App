@@ -123,7 +123,7 @@ h5 {
 }
 
 .dark-navbar {
-  background: #006db6;
+  background: #003559;
 }
 
 .btn_google > img {
@@ -132,7 +132,7 @@ h5 {
 .btn_google > p {
   margin: auto 0;
   text-transform: uppercase;
-  color: teal;
+  color: #003559;
   font-size: 0.97rem;
 }
 
