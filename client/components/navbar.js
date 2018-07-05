@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, darken}) => (
-  <div className={darken ? "navbar-fixed dark-navbar" : "navbar-fixed"}>
+  <div className={darken ? 'navbar-fixed dark-navbar' : 'navbar-fixed'}>
     <nav className="transparent z-depth-0" id="nav">
       <div className="nav-wrapper transparent nav-container">
         <a href="/" className="nav-alythia">
