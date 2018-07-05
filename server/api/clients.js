@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const uuidv4 = require('uuid/v4')
+const crypto = require('crypto')
 const {Client} = require('../db/models')
 const jwt = require('jsonwebtoken')
 const {redisClient} = require('../redis')
@@ -38,6 +39,27 @@ router.post('/verify', async (req, res, next) => {
     console.log('/client/verify', error.message)
     next(error)
   }
+})
+
+const generateSecretKey = () => {
+  return crypto.randomBytes(16).toString('base64')
+}
+
+const generatePublicKey = () => {
+  return crypto.randomBytes(32).toString('base64')
+}
+
+router.put('/:clientUUID', async (req, res, next) => {
+  const client = await Client.findOne({
+    where: {client_id: req.params.clientUUID}
+  })
+  const newSecret = generateSecretKey()
+  const newPublicKey = generatePublicKey()
+  await client.update({
+    secret_key: newSecret,
+    public_key: newPublicKey
+  })
+  res.json(client)
 })
 
 router.get('/:client_id', async (req, res, next) => {

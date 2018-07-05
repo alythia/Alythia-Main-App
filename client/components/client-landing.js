@@ -5,7 +5,8 @@ import {
   addNewProject,
   fetchUserProjects,
   addedCurrentProject,
-  changeBackgroudColor
+  changeBackgroudColor,
+  generateNewToken
 } from '../store/client'
 import Project from './project-card'
 import {me} from '../store'
@@ -25,7 +26,7 @@ class Landing extends Component {
 
   componentDidMount = async () => {
     await this.props.loadInitialData()
-    this.props.changeBackgroudColor(false);
+    this.props.changeBackgroudColor(false)
     if (this.props.developerId) {
       await this.props.fetchUserProjects(this.props.developerId)
       this.setState({newProj: {developerId: this.props.developerId}})
@@ -38,13 +39,8 @@ class Landing extends Component {
     this.setState({newProj: change})
   }
 
-  generateNewToken = event => {
-    console.log('GENERATE NEW TOKEN')
-  }
-
-  generateNewSecret = event => {
-    // Generate new client secret
-    console.log('GENERATE NEW SECRET')
+  generateNewToken = async () => {
+    await this.props.generateNewToken(this.props.project.client_id)
   }
 
   handleSubmit = () => {
@@ -146,22 +142,12 @@ class Landing extends Component {
                 waves="light"
                 className="button-margin"
               >
-                New Public Key
-              </Button>
-              <Button
-                onClick={this.generateNewSecret}
-                waves="light"
-                className="button-margin"
-              >
-                New Secret Key
+                New Public Key & Secret
               </Button>
             </div>
           }
         >
-          <ProjectDetails
-            generateNewToken={this.generateNewToken}
-            generateNewSecret={this.generateNewSecret}
-          />
+          <ProjectDetails />
         </Modal>
       </React.Fragment>
     )
@@ -182,7 +168,8 @@ const mapDispatch = dispatch => ({
   fetchUserProjects: developerId => dispatch(fetchUserProjects(developerId)),
   changeBackgroudColor: bool => dispatch(changeBackgroudColor(bool)),
   addedCurrentProject: currentProject =>
-    dispatch(addedCurrentProject(currentProject))
+    dispatch(addedCurrentProject(currentProject)),
+  generateNewToken: clientUUID => dispatch(generateNewToken(clientUUID))
 })
 
 export default connect(mapState, mapDispatch)(Landing)

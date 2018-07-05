@@ -32,17 +32,17 @@ const Client = db.define('client', {
 
 module.exports = Client
 
-Client.generateSecretKey = function() {
+const generateSecretKey = () => {
   return crypto.randomBytes(16).toString('base64')
 }
 
-Client.generatePublicKey = function() {
+const generatePublicKey = () => {
   return crypto.randomBytes(32).toString('base64')
 }
 
 const generateToken = client => {
-  client.secret_key = Client.generateSecretKey()
-  client.public_key = Client.generatePublicKey()
+  client.secret_key = generateSecretKey()
+  client.public_key = generatePublicKey()
 }
 
 Client.beforeCreate(generateToken)
