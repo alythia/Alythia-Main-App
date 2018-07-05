@@ -35,24 +35,6 @@ class ProjectDetails extends Component {
           value={currentProject.website}
           disabled
         />
-        <Input
-          s={6}
-          label="Public Key"
-          name="apiToken"
-          type="textarea"
-          id="apiTextArea"
-          placeholder=""
-          value={currentProject.public_key}
-          disabled
-        />
-        <Input
-          s={6}
-          label="Secret Key"
-          name="clientSecret"
-          placeholder=""
-          value={currentProject.secret_key}
-          disabled
-        />
       </form>
     )
   }
