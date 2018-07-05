@@ -16,16 +16,14 @@ class QRCodeLanding extends Component {
       pageLoaded: false,
       token: '',
       message: '',
-      pageInfo: {},
-      authenticating: false
+      pageInfo: {}
     }
 
-    socket.on('authorized', async data => {
+    socket.on('authorized', data => {
+      const clientUrl = this.state.pageInfo.website
       const loginIdentifier = data.loginIdentifier
-      // TODO: Make the below IP address dynamic by looking up client routes URL
-      await axios.get(
-        `http://alythiamock.herokuapp.com/auth/logged-in/${loginIdentifier}`
-      )
+      console.log('CLIENT URL FOR ROUTE:', clientUrl)
+      window.location.href = `${clientUrl}/auth/logged-in/${loginIdentifier}`
     })
 
     socket.on('Hello', () => {
@@ -71,10 +69,6 @@ class QRCodeLanding extends Component {
         </div>
       )
     } else if (pageLoaded && token.length > 0) {
-      let authenticating = this.state.authenticating
-      let spinnerDisplay = authenticating ? '' : 'hidden'
-      let qrDisplay = authenticating ? 'hidden' : ''
-
       return (
         <div className="row container center animated zoomIn">
           <div className="col s12 m12">
@@ -84,12 +78,9 @@ class QRCodeLanding extends Component {
                 <div className="large-spacer" />
                 <div id="QRcontainer">
                   <div className="spinner-holder">
-                    <Spinner
-                      className={`qrLoader ${spinnerDisplay}`}
-                      name="cube-grid"
-                    />
+                    <Spinner className="qrLoader hidden" name="cube-grid" />
                   </div>
-                  <div id="qr" className={qrDisplay}>
+                  <div id="qr" className="">
                     <UniqueQRCode
                       id="QRCodeRender"
                       apiToken={JSON.stringify(pageInfo)}
