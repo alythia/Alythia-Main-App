@@ -24,7 +24,7 @@ router.post('/verify/', async (req, res, next) => {
     const userIdentifier = req.body.userIdentifier
     const clientIdentifier = req.body.clientIdentifier
     const transactionIdentifier = req.body.transactionIdentifier
-    const website = req.body.website;
+    const website = req.body.website
 
     const user = await User.findOne({where: {email: userEmail}})
     if (!user) {
@@ -45,7 +45,7 @@ router.post('/verify/', async (req, res, next) => {
         if (user && clientIdentifier === reply) {
           // After user and client are verified, post to client user email
           const {data} = await axios.post(
-            `${website}/api/verify/${clientIdentifier}`,
+            `${website}/auth/verify/${clientIdentifier}`,
             {email: userEmail}
           )
           console.log('res from client --> ', data)
