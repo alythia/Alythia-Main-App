@@ -59,3 +59,12 @@ router.post('/verify/', async (req, res, next) => {
     next(error)
   }
 })
+
+router.delete('/delete/:userUUID', async (req, res, next) => {
+  try {
+    await User.destroy({where: {UUID: req.params.userUUID}})
+    res.status(200)
+  } catch (err) {
+    next(err)
+  }
+})
