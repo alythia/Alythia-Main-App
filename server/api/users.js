@@ -24,7 +24,7 @@ router.post('/verify/', async (req, res, next) => {
     const userIdentifier = req.body.userIdentifier
     const clientIdentifier = req.body.clientIdentifier
     const transactionIdentifier = req.body.transactionIdentifier
-    const website = req.body.website;
+    const website = req.body.website
 
     const user = await User.findOne({where: {email: userEmail}})
     if (!user) {
