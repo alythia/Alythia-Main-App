@@ -35,23 +35,17 @@ router.post('/verify/', async (req, res, next) => {
       res.status(401).send('Access denied, incorrect user identifier.')
     }
 
-    // Verify client and post to Client backend
     await redisClient.get(transactionIdentifier, async function(err, reply) {
       if (err) {
         console.log('Redis error on GET: ', err)
       } else {
-        console.log('Redis reply on GET: ', reply)
-
         if (user && clientIdentifier === reply) {
-          // After user and client are verified, post to client user email
           const {data} = await axios.post(
-            `${website}/auth/verify/${clientIdentifier}`,
+            `${website}/auth/alythia/verify/${userIdentifier}`,
             {email: userEmail}
           )
-          console.log('res from client --> ', data)
-
-          io.emit('authorized', data)
-          console.log('socket just emitted --| ')
+          console.log('result data', data)
+          io.emit('authorized', {loginIdentifier: userIdentifier})
           res.json(data)
         }
       }
