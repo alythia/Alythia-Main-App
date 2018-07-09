@@ -122,6 +122,20 @@ h5 {
   margin: 15px 0 5px 0;
 }
 
+.btn_alythia{
+  display: flex;
+  margin: 15px 0 5px 0;
+  background-color: #061A40;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14);
+  border-radius: 3px;
+  width: 85%;
+  height: 35px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+}
+
 .dark-navbar {
   background: #003559;
   position: fixed;
@@ -132,7 +146,7 @@ h5 {
 .btn_google > img {
   margin-right: 15px;
 }
-.btn_google > p {
+.btn_google > p, .btn_alythia > p {
   margin: auto 0;
   text-transform: uppercase;
   color: #003559;
@@ -154,6 +168,9 @@ h5 {
   width: 85%;
   display: flex;
   justify-content: center;
+  color: #353538;
+  background-color: rgb(228, 223, 223);
+
 }
 
 .input-field {
@@ -363,7 +380,11 @@ h5 {
 }
 
 .blue-button {
-  background-color: #003559;
+  background-color: #002F4F;
+}
+
+.blue-button > p {
+  color: #ffffff;
 }
 
 .alythia-small-text {

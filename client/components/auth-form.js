@@ -8,9 +8,9 @@ class AuthForm extends Component {
   constructor() {
     super()
   }
-  
+
   componentDidMount() {
-    this.props.changeBackgroudColor(true);
+    this.props.changeBackgroudColor(true)
   }
 
   render() {
@@ -40,14 +40,22 @@ class AuthForm extends Component {
             </div>
           </center>
           <center>
-            <Button id="login" type="submit" className="blue-button">
+            <Button id="login" type="submit">
               <Icon left>email</Icon>
               {displayName} with Email
             </Button>
             <a href="/auth/google">
               <div className="btn_google center">
                 <img src="/img/btn_google.svg" />
-                <p>{displayName} with Google</p>
+                <p style={{color: "#353538"}}>{displayName} with Google</p>
+              </div>
+            </a>
+            <a href="/api/clients/97c8a310-8324-11e8-93b1-cdbf44833996">
+              <div className="btn_alythia blue-button center">
+                <p>
+                  <Icon left>crop_free</Icon>
+                  Login with Alythia
+                </p>
               </div>
             </a>
             {error &&
