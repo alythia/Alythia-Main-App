@@ -55,10 +55,35 @@ router.post('/verify/', async (req, res, next) => {
   }
 })
 
-router.delete('/delete/:userUUID', async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   try {
-    await User.destroy({where: {UUID: req.params.userUUID}})
-    res.status(200)
+    const {newEmail, oldEmail, UUID} = req.body
+    const user = await User.findOne({where: {email: oldEmail}})
+
+    if (user && user.correctUUID(UUID)) {
+      await user.update({email: newEmail})
+      res.status(200).send('Success')
+    } else {
+      res.status(404).send('Not found')
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:userUUID', async (req, res, next) => {
+  try {
+    const {email} = req.body
+    const {userUUID} = req.params
+
+    const user = await User.findOne({where: {email}})
+
+    if (user.correctUUID(userUUID)) {
+      await User.destroy({where: {id: user.id}})
+      res.status(200).send('Success')
+    } else {
+      res.status(404).send('Not found')
+    }
   } catch (err) {
     next(err)
   }
