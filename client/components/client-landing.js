@@ -112,8 +112,8 @@ class Landing extends Component {
               <br />
               <p className="description-text">
                 Alythia is an Open Authorization ("OAuth") protocol that allows
-                third-party websites to safely and securely autheticate users
-                without requiring sesitive user data (e.g. site-specific user
+                third-party websites to safely and securely authenticate users
+                without requiring sensitive user data (e.g. site-specific user
                 passwords). We provide secure, third-party, user-agent,
                 delegated authorization.
               </p>
