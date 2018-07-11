@@ -18,12 +18,13 @@ router.post('/', async (req, res, next) => {
 router.post('/verify/', async (req, res, next) => {
   try {
     const {io} = require('../index')
-    io.emit('Hello')
+    io.emit('QRscanned')
     // Verify user
     const userEmail = req.body.email
     const userIdentifier = req.body.userIdentifier
     const clientIdentifier = req.body.clientIdentifier
     const transactionIdentifier = req.body.transactionIdentifier
+    const website = req.body.website
 
     const user = await User.findOne({where: {email: userEmail}})
     if (!user) {
@@ -34,23 +35,17 @@ router.post('/verify/', async (req, res, next) => {
       res.status(401).send('Access denied, incorrect user identifier.')
     }
 
-    // Verify client and post to Client backend
     await redisClient.get(transactionIdentifier, async function(err, reply) {
       if (err) {
         console.log('Redis error on GET: ', err)
       } else {
-        console.log('Redis reply on GET: ', reply)
-
         if (user && clientIdentifier === reply) {
-          // After user and client are verified, post to client user email
           const {data} = await axios.post(
-            `http://alythiamock.herokuapp.com/api/verify/${clientIdentifier}`,
+            `${website}/auth/alythia/verify/${userIdentifier}`,
             {email: userEmail}
           )
-          console.log('res from client --> ', data)
-
-          io.emit('authorized', data)
-          console.log('socket just emitted --| ')
+          console.log('result data', data)
+          io.emit('authorized', {loginIdentifier: userIdentifier})
           res.json(data)
         }
       }
@@ -60,10 +55,35 @@ router.post('/verify/', async (req, res, next) => {
   }
 })
 
-router.delete('/delete/:userUUID', async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   try {
-    await User.destroy({where: {UUID: req.params.userUUID}})
-    res.status(200)
+    const {newEmail, oldEmail, UUID} = req.body
+    const user = await User.findOne({where: {email: oldEmail}})
+
+    if (user && user.correctUUID(UUID)) {
+      await user.update({email: newEmail})
+      res.status(200).send('Success')
+    } else {
+      res.status(404).send('Not found')
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:userUUID', async (req, res, next) => {
+  try {
+    const {email} = req.body
+    const {userUUID} = req.params
+
+    const user = await User.findOne({where: {email}})
+
+    if (user.correctUUID(userUUID)) {
+      await User.destroy({where: {id: user.id}})
+      res.status(200).send('Success')
+    } else {
+      res.status(404).send('Not found')
+    }
   } catch (err) {
     next(err)
   }

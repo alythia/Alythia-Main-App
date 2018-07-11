@@ -23,10 +23,10 @@ class QRCodeLanding extends Component {
       const clientUrl = this.state.pageInfo.website
       const loginIdentifier = data.loginIdentifier
       console.log('CLIENT URL FOR ROUTE:', clientUrl)
-      window.location.href = `${clientUrl}/api/logged-in/${loginIdentifier}`
+      window.location.href = `${clientUrl}/auth/alythia/logged-in/${loginIdentifier}`
     })
 
-    socket.on('Hello', () => {
+    socket.on('QRscanned', () => {
       const qr = document.getElementById('qr')
       qr.classList.add('hidden')
       const loader = document.querySelector('.hidden')
@@ -78,7 +78,7 @@ class QRCodeLanding extends Component {
                 <div className="large-spacer" />
                 <div id="QRcontainer">
                   <div className="spinner-holder">
-                    <Spinner className="qrLoader hidden" name="cube-grid" />
+                    <Spinner className="qrLoader hidden" color="#003559" name="cube-grid" />
                   </div>
                   <div id="qr" className="">
                     <UniqueQRCode

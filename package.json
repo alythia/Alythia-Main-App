@@ -52,6 +52,7 @@
     "morgan": "^1.8.1",
     "npm": "^6.1.0",
     "passport": "^0.3.2",
+    "passport-custom": "^1.0.5",
     "passport-google-oauth": "^1.0.0",
     "pg": "^6.1.2",
     "pg-hstore": "^2.3.2",

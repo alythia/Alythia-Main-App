@@ -132,21 +132,8 @@ class Landing extends Component {
             </div>
           )}
         </section>
-        <Modal
-          header="Project Credentials"
-          id="closeDetails"
-          actions={
-            <div>
-              <Button
-                onClick={this.generateNewToken}
-                waves="light"
-                className="button-margin"
-              >
-                New Public Key & Secret
-              </Button>
-            </div>
-          }
-        >
+        <Modal header="Project Details" id="closeDetails">
+          <br />
           <ProjectDetails />
         </Modal>
       </React.Fragment>
