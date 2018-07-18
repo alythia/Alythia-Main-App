@@ -32,7 +32,6 @@ For the front-end, modular components were built and styled using the following:
 # 👨‍💻 Owners/Collaborators
 
 * [Matt Ferguson](https://github.com/mdfergus/)
-* [Anton Holmes](https://github.com/antonholmes/)
 * [Ziyovuddin Shamsiddini](https://github.com/ziyoshams/)
 * [Dave Trabka](https://github.com/davetrabka/)
 
